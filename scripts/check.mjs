@@ -4,7 +4,7 @@ import {fileURLToPath} from 'node:url';
 import vm from 'node:vm';
 const dist=fileURLToPath(new URL('../dist/',import.meta.url));
 const names=(await readdir(dist)).filter(file=>file.endsWith('.html'));
-const required=['index.html','ueber-uns.html','zweiraeder.html','automobile.html','ankauf.html','bestand.html','impressum.html','datenschutz.html'];
+const required=['index.html','ueber-uns.html','automobile.html','ankauf.html','bestand.html','impressum.html','datenschutz.html'];
 const failures=[];
 const documents=new Map();
 for(const name of names)documents.set(name,await readFile(path.join(dist,name),'utf8'));
@@ -34,14 +34,14 @@ for(const [name,html]of documents){
   if(!referenceNav)referenceNav=normalized;
   if(normalized!==referenceNav||nav!==mobile)failures.push(`${name}: Navigation inkonsistent`);
   if(/href="#/.test(nav))failures.push(`${name}: Navigation verwendet Abschnittsanker`);
-  if(required.slice(0,6).includes(name)&&!nav.includes(`href="./${name}" class="active" aria-current="page"`))failures.push(`${name}: Aktive Seite fehlt`);
+  if(required.slice(0,5).includes(name)&&!nav.includes(`href="./${name}" class="active" aria-current="page"`))failures.push(`${name}: Aktive Seite fehlt`);
 }
 for(const file of ['app.js','config.js','bestand.js','bestand-daten.js'])try{new vm.Script(await readFile(path.join(dist,file),'utf8'),{filename:file});}catch(error){failures.push(error.message);}
 const css=await readFile(path.join(dist,'styles.css'),'utf8');
 const fonts=await readFile(path.join(dist,'assets/fonts.css'),'utf8');
 for(const[,font]of fonts.matchAll(/url\(\.\/([^)]+)\)/g))try{await access(path.join(dist,'assets',font));}catch{failures.push(`Fehlende Schrift ${font}`);}
 const app=await readFile(path.join(dist,'app.js'),'utf8');
-for(const[,name]of app.matchAll(/\['((?:porsche|puch|lifestyle)[a-z-]*)','/g))try{await access(path.join(dist,'assets',`${name}-1440.webp`));}catch{failures.push(`Fehlendes Galeriebild ${name}`);}
+for(const[,name]of app.matchAll(/\['((?:auto-|porsche|puch|lifestyle)[a-z-]*)',\s*'/g))try{await access(path.join(dist,'assets',`${name}-1440.webp`));}catch{failures.push(`Fehlendes Galeriebild ${name}`);}
 if(!css.includes('prefers-reduced-motion')||!app.includes('prefers-reduced-motion'))failures.push('Reduzierte Bewegung fehlt');
 if(/transition\s*:\s*all\b/.test(css))failures.push('transition:all vermeiden');
 if(/\b(?:localStorage|sessionStorage)\s*[.(]/.test(app))failures.push('Formulardaten dürfen nicht dauerhaft im Browser gespeichert werden');
@@ -60,11 +60,14 @@ try{
   const inventory=inventoryContext.window.THIEL_INVENTORY;
   if(!inventory||!Array.isArray(inventory.vehicles))throw new Error('Bestandsdaten fehlen');
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(inventory.contact?.email)||!/^\+\d{7,15}$/.test(inventory.contact?.tel)||!inventory.contact?.phone)throw new Error('Bestandskontakt ungültig');
+  if(inventory.vehicles.length!==1)failures.push('Bestand: Genau ein Fahrzeug erwartet');
   const vehicleIds=new Set();
   for(const vehicle of inventory.vehicles){
     if(!/^[a-z0-9-]+$/.test(vehicle.id)||vehicleIds.has(vehicle.id))failures.push(`Bestand: ungültige/doppelte ID ${vehicle.id}`);
     vehicleIds.add(vehicle.id);
-    if(!['automobile','zweiraeder'].includes(vehicle.category))failures.push(`Bestand: unbekannte Kategorie ${vehicle.id}`);
+    if(vehicle.category!=='automobile')failures.push(`Bestand: Nur Automobile erlaubt: ${vehicle.id}`);
+    if(vehicle.name!=='Porsche 911 F-Modell'||!vehicle.facts?.some(f=>f.label==='Baujahr'&&f.value==='1966'))failures.push('Bestand: Bestätigte Porsche-Angaben fehlen');
+    if(vehicle.example!==false||vehicle.availability!=='sold')failures.push('Bestand: Porsche muss als verkauft statt als Beispiel gekennzeichnet sein');
     if(!vehicle.name||!vehicle.teaser||typeof vehicle.example!=='boolean'||(!vehicle.example&&!vehicle.availability))failures.push(`Bestand: Pflichtangaben fehlen bei ${vehicle.id}`);
     if(!Array.isArray(vehicle.facts)||!vehicle.facts.length||vehicle.facts.some(f=>!f.label||!f.value))failures.push(`Bestand: Eckdaten fehlen bei ${vehicle.id}`);
     if(!Array.isArray(vehicle.description)||!vehicle.description.length||vehicle.description.some(p=>typeof p!=='string'||!p.trim()))failures.push(`Bestand: Beschreibung fehlt bei ${vehicle.id}`);
@@ -80,7 +83,9 @@ try{
 }catch(error){failures.push(`Bestand: ${error.message}`);}
 const stock=documents.get('bestand.html')||'';
 if(!stock.includes('<dialog')||!stock.includes('aria-labelledby="stock-dialog-title"'))failures.push('Bestand: beschrifteter Dialog fehlt');
-for(const filter of ['alle','automobile','zweiraeder'])if(!stock.includes(`data-stock-filter="${filter}"`))failures.push(`Bestand: Filter fehlt: ${filter}`);
+for(const filter of ['alle','automobile'])if(!stock.includes(`data-stock-filter="${filter}"`))failures.push(`Bestand: Filter fehlt: ${filter}`);
+if(stock.includes('data-stock-filter="zweiraeder"'))failures.push('Bestand: Zweirad-Filter muss entfernt sein');
+if(stock.includes('id="stock-example-note"'))failures.push('Bestand: Allgemeiner Beispielhinweis muss entfernt sein');
 const stockCss=await readFile(path.join(dist,'bestand.css'),'utf8');
 if(!stockCss.includes('prefers-reduced-motion'))failures.push('Bestand: reduzierte Bewegung fehlt');
 for(const[,url]of stockCss.matchAll(/url\(["']?([^)'"\s]+)["']?\)/g))await localLink('bestand.html',url);

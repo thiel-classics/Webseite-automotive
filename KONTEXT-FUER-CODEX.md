@@ -34,22 +34,21 @@ Statisches HTML/CSS/JavaScript ohne Framework, ohne npm-Abhängigkeiten und ohne
 | --- | --- |
 | `dist/index.html` | Startseite: Hauptbild, Bilderring, Einstiege in die Fahrzeugwelten, Abschlussbereich. |
 | `dist/ueber-uns.html` | Eigene Über-uns-Seite. |
-| `dist/zweiraeder.html` | Zweiräder, Puch-Bilder, Leistungen und Kreidler-Zustandsvergleich. |
 | `dist/automobile.html` | Automobile, Bildgalerien, Beratung und Vermittlung. |
 | `dist/bestand.html` | Fahrzeugbestand mit Filtern, Kontakten und Glas-Detailfenster. |
 | `dist/ankauf.html` | Fahrzeuganfrage per Formular. |
 | `dist/impressum.html`, `dist/datenschutz.html` | Eigenständige rechtliche Seiten; noch Entwürfe/Platzhalter. |
 | `dist/styles.css` | Gemeinsame Gestaltung, Header, Karussell, responsive Regeln. Teilweise stark komprimierte lange Zeilen. |
-| `dist/app.js` | Menü, alte Ankerweiterleitungen, Bildgalerien, Bilderring, Ankaufformular und Zustandsvergleich. |
+| `dist/app.js` | Menü, alte Ankerweiterleitungen, Bildgalerien, Bilderring und Ankaufformular. |
 | `dist/config.js` | Öffentliche Formularkonfiguration. |
 | `dist/bestand-daten.js` | Bestandsdaten und Kontakte. |
 | `dist/bestand.js`, `dist/bestand.css` | Filter, Fahrzeugkarten, Kontaktwechsel und Detailfenster. |
 | `dist/assets/` | Alle tatsächlich verwendeten Bilder, Schriften und Schriftlizenzen. |
 | `scripts/serve.mjs` | Lokaler HTTP-Server; bindet nur `127.0.0.1`, Standardport 4173. |
-| `scripts/check.mjs` | Statische Prüfung aller acht Seiten und ihrer Verweise/Konfiguration. |
+| `scripts/check.mjs` | Statische Prüfung aller sieben Seiten und ihrer Verweise/Konfiguration. |
 | `Thiel-Classics.code-workspace` | Portabler VS-Code-Arbeitsbereich mit Vorschau-/Prüfaufgaben. |
 
-Navigation: Startseite, Über uns, Zweiräder, Automobile, Unser Bestand, Ankauf. Echte relative `.html`-Links; jede Seite ist ein vollständiges Dokument. Aktive Seite über `aria-current="page"`. Navigation und Footer stehen direkt in den HTML-Dateien. Alte One-Pager-Anker werden teilweise auf die neuen Seiten umgeleitet.
+Navigation: Startseite, Über uns, Automobile, Unser Bestand, Ankauf. Echte relative `.html`-Links; jede Seite ist ein vollständiges Dokument. Aktive Seite über `aria-current="page"`. Navigation und Footer stehen direkt in den HTML-Dateien. Alte One-Pager-Anker werden teilweise auf die neuen Seiten umgeleitet.
 
 Root-`index.html` leitet für den früheren GitHub-Pages-Test unter Erhalt von Suchparametern und Hash nach `dist/` weiter; `.nojekyll` liegt daneben. Diese Dateien nicht als neue Startseite bearbeiten. Die lokale Vorschau liefert direkt `dist` aus.
 
@@ -60,7 +59,7 @@ Root-`index.html` leitet für den früheren GitHub-Pages-Test unter Erhalt von S
 - Das Hauptbild verwendet den vom Nutzer neu zugeschnittenen Blick auf silbernen/grünen Porsche. Fertige Hero-Assets beibehalten.
 - Der alte Abschnitt „01 / unsere Haltung“ wurde entfernt. Die heutige Startseite ist keine wiederherzustellende ursprüngliche One-Pager-Fassung.
 - Der Bilderring ist nach einer Framer-Referenz als flacher räumlicher Ring gestaltet. Die Referenz begründet weder ein Framework noch ein Framer-Projekt.
-- Acht Bilder bleiben in dieser Reihenfolge im Ring: weißer Porsche, Puch, silbernes Porsche-Heckdetail, silberner Porsche, Puch-Tank, Porsche-Trio, Lifestyle mit rotem Auto, Porsche-Front.
+- Acht Bilder bleiben in dieser Reihenfolge im Ring: weißer Porsche, pinkfarbenes Porsche-Heck, silbernes Porsche-Heckdetail, silberner Porsche, silberner und grüner Porsche unter Bäumen, Porsche-Trio, Lifestyle mit rotem Auto, Porsche-Front.
 - Letzter Auftrag, vollständig abgeschlossen: Überschrift „Zeitlos. In Bewegung.“, „EINE LEIDENSCHAFT. VIELE PERSPEKTIVEN.“, „Einblicke in unsere Welt der Klassiker.“ und Bildkarten wurden größer. Abschnitt nutzt die Fläche stärker; Größen sind responsiv.
 - Die gesamte Leiste darunter ist entfernt: „Scrollen oder ziehen und entdecken.“, Pausebutton, beide runden Pfeiltasten, Trennlinie und Leistencontainer. Keine Restfläche dafür erhalten. Diese Bedienelemente nicht aus einer älteren Anleitung wieder hinzufügen.
 - Geändert wurden beim letzten Auftrag ausschließlich die Karussellanteile in `dist/index.html`, `dist/styles.css`, `dist/app.js`. HTML/CSS/JS außerhalb dieses Bereichs wurden gegen vorherige Kopien auf Gleichheit geprüft.
@@ -92,13 +91,10 @@ Root-`index.html` leitet für den früheren GitHub-Pages-Test unter Erhalt von S
 - Anschließend wurde der verbleibende obere Block „KLASSISCHE AUTOMOBILE“ plus „Oldtimer, Youngtimer und Sammlerfahrzeuge. Ausgewählt mit einem Blick für das, was sie besonders macht.“ samt Leerraum und Trennlinie vollständig entfernt.
 - Nicht erneut eine zusätzliche Einleitung oder einen doppelten Slogan einführen.
 
-### Zweiräder / Zustandsvergleich
+### Automotive-Version
 
-- Ein interaktiver horizontaler Bildvergleich zeigt dieselbe Kreidler als vernachlässigten Fund und restauriert. Bilder sind übereinander ausgerichtet; senkrechte Trennlinie mit rundem Griff, Maus/Touch/Tastatur.
-- Bildgrundlage war `IMG_7810.JPG`; Boden wurde für die Visualisierung ersetzt. Freigegebene fertige Bilder stehen als `kreidler-scheunenfund.webp` und `kreidler-restauriert.webp` in `dist/assets`.
-- Nutzer möchte damit ausdrücken, dass Thiel Classics jeden Zustand sucht und Fahrzeuge wieder auf die Straße bringt. Überschrift „Jeder Zustand. Zurück auf die Straße.“; nicht als werbliche Rubrik „Vorher/Nachher“ umbenennen.
-- KI-Visualisierungen sind entsprechend gekennzeichnet. Es ist kein dokumentierter realer Restaurierungsfall zu behaupten.
-- Die früher genannte Einbauposition „zwischen 03 und 04“ bezog sich auf den damaligen One-Pager. Der aktuelle Vergleich gehört zur Zweiräder-Seite.
+- Die Zweiräder-Seite einschließlich ihres Startseiten-Einstiegs, ihrer Navigation und ihres Zustandsvergleichs wurde entfernt. Die Bestandskategorie „Zweiräder“ bleibt unverändert.
+- Die vordere Mofa-Karte im Startseiten-Einstieg zeigt nun das Porsche-Duo; Kartenmaße und Gestaltung bleiben erhalten.
 
 ### Unser Bestand
 

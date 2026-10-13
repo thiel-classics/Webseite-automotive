@@ -5,7 +5,7 @@
   const list = document.querySelector('#stock-list');
   if (!list || !inventory) return;
   const { vehicles, contact } = inventory;
-  const categoryNames = { automobile: 'Automobil', zweiraeder: 'Zweirad' };
+  const categoryNames = { automobile: 'Automobil' };
   const dialog = document.querySelector('#stock-dialog');
   const surface = dialog.querySelector('.stock-dialog-surface');
   const scroller = dialog.querySelector('.stock-dialog-scroll');
@@ -48,6 +48,7 @@
   }
 
   const cards = vehicles.map(vehicle => {
+    const sold = vehicle.availability === 'sold';
     const li = element('li');
     li.dataset.category = vehicle.category;
     const card = element('article', 'stock-card');
@@ -66,29 +67,37 @@
     photo.addEventListener('click', () => openVehicle(vehicle, photo));
     const body = element('div', 'stock-card-body');
     const heading = element('h2', '', vehicle.name); heading.id = `vehicle-${vehicle.id}`;
-    body.append(element('span', 'eyebrow', categoryNames[vehicle.category].toUpperCase()), heading, factsList(vehicle.facts, 'stock-card-facts'), element('p', 'stock-card-teaser', vehicle.teaser));
+    const meta = element('div', 'stock-card-meta');
+    meta.append(element('span', 'eyebrow', categoryNames[vehicle.category].toUpperCase()));
+    if (sold) meta.append(element('span', 'stock-sold', 'sold'));
+    body.append(meta, heading, factsList(vehicle.facts, 'stock-card-facts'), element('p', 'stock-card-teaser', vehicle.teaser));
     const details = element('button', 'stock-details-button', 'Fahrzeug entdecken');
     details.type = 'button'; details.append(arrow());
     details.setAttribute('aria-label', `${vehicle.name} – Details ansehen`);
     details.setAttribute('aria-haspopup', 'dialog'); details.setAttribute('aria-controls', 'stock-dialog');
     details.addEventListener('click', () => openVehicle(vehicle, details));
     const contactSlot = element('div', 'stock-card-contact');
-    const contactButton = element('button', 'stock-contact-toggle', 'Jetzt kontaktieren');
-    contactButton.type = 'button'; contactButton.append(arrow());
-    contactButton.setAttribute('aria-expanded', 'false');
-    contactButton.setAttribute('aria-controls', `contact-${vehicle.id}`);
-    contactButton.setAttribute('aria-label', `${vehicle.name} – Jetzt kontaktieren`);
-    const links = element('div', 'stock-card-contacts');
-    links.id = `contact-${vehicle.id}`; links.hidden = true;
-    links.setAttribute('role', 'group'); links.setAttribute('aria-label', `Kontakt zu ${vehicle.name}`);
-    const email = element('a', '', contact.email); email.href = mailLink(vehicle); email.append(arrow());
-    const phone = element('a', '', contact.phone); phone.href = `tel:${contact.tel}`; phone.append(arrow());
-    links.append(email, phone);
-    contactButton.addEventListener('click', () => {
-      contactButton.setAttribute('aria-expanded', 'true'); contactButton.hidden = true;
-      links.hidden = false; email.focus({ preventScroll: true });
-    });
-    contactSlot.append(contactButton, links); body.append(details, contactSlot); card.append(photo, body); li.append(card); list.append(li);
+    if (sold) {
+      contactSlot.append(element('p', 'stock-sold-note stock-card-sold-note', 'Dieses Fahrzeug ist bereits verkauft.'));
+    } else {
+      const contactButton = element('button', 'stock-contact-toggle', 'Jetzt kontaktieren');
+      contactButton.type = 'button'; contactButton.append(arrow());
+      contactButton.setAttribute('aria-expanded', 'false');
+      contactButton.setAttribute('aria-controls', `contact-${vehicle.id}`);
+      contactButton.setAttribute('aria-label', `${vehicle.name} – Jetzt kontaktieren`);
+      const links = element('div', 'stock-card-contacts');
+      links.id = `contact-${vehicle.id}`; links.hidden = true;
+      links.setAttribute('role', 'group'); links.setAttribute('aria-label', `Kontakt zu ${vehicle.name}`);
+      const email = element('a', '', contact.email); email.href = mailLink(vehicle); email.append(arrow());
+      const phone = element('a', '', contact.phone); phone.href = `tel:${contact.tel}`; phone.append(arrow());
+      links.append(email, phone);
+      contactButton.addEventListener('click', () => {
+        contactButton.setAttribute('aria-expanded', 'true'); contactButton.hidden = true;
+        links.hidden = false; email.focus({ preventScroll: true });
+      });
+      contactSlot.append(contactButton, links);
+    }
+    body.append(details, contactSlot); card.append(photo, body); li.append(card); list.append(li);
     return li;
   });
 
@@ -101,7 +110,6 @@
   }
   filters.forEach(button => button.addEventListener('click', () => filterVehicles(button.dataset.stockFilter)));
   document.querySelector('.stock-filters').hidden = false;
-  document.querySelector('#stock-example-note').hidden = !vehicles.some(vehicle => vehicle.example);
   filterVehicles('alle');
 
   function renderImage() {
@@ -117,10 +125,15 @@
     renderImage();
   }
   function openVehicle(vehicle, opener) {
+    const sold = vehicle.availability === 'sold';
     currentVehicle = vehicle; currentImage = 0; trigger = opener; scrollPosition = window.scrollY;
     dialog.querySelector('#stock-dialog-title').textContent = vehicle.name;
     dialog.querySelector('#stock-dialog-category').textContent = categoryNames[vehicle.category].toUpperCase();
-    dialog.querySelector('#stock-dialog-status').textContent = vehicle.example ? 'Beispielfahrzeug · Daten und Verfügbarkeit noch nicht bestätigt.' : vehicle.availability;
+    const status = dialog.querySelector('#stock-dialog-status');
+    status.textContent = vehicle.example ? 'Beispielfahrzeug · Daten und Verfügbarkeit noch nicht bestätigt.' : vehicle.availability;
+    status.classList.toggle('stock-sold', sold);
+    dialog.querySelector('.stock-detail-contact').hidden = sold;
+    dialog.querySelector('.stock-detail-sold-note').hidden = !sold;
     dialog.querySelector('.stock-detail-facts').replaceWith(factsList(vehicle.facts, 'stock-detail-facts'));
     dialog.querySelector('.stock-description').replaceChildren(...vehicle.description.map(text => element('p', '', text)));
     thumbnails.replaceChildren(...vehicle.images.map((image, index) => {

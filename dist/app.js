@@ -14,7 +14,7 @@ const header=document.querySelector('#header');
 window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>40),{passive:true});
 
 // Keep old bookmarks usable after the move from the one-page website.
-const legacyRoutes={automobile:'automobile.html',zweiraeder:'zweiraeder.html','ueber-uns':'ueber-uns.html',ankauf:'ankauf.html','fahrzeug-anbieten':'ankauf.html',referenzen:'automobile.html#einblicke','jeder-zustand':'zweiraeder.html#jeder-zustand',impressum:'impressum.html',datenschutz:'datenschutz.html'};
+const legacyRoutes={automobile:'automobile.html','ueber-uns':'ueber-uns.html',ankauf:'ankauf.html','fahrzeug-anbieten':'ankauf.html',referenzen:'automobile.html#einblicke',impressum:'impressum.html',datenschutz:'datenschutz.html'};
 if(document.body.dataset.page==='index'&&legacyRoutes[location.hash.slice(1)]){
   const destination=new URL(legacyRoutes[location.hash.slice(1)],location.href);destination.search=location.search;location.replace(destination.href);
 }
@@ -22,9 +22,8 @@ if(document.body.dataset.page==='index'&&legacyRoutes[location.hash.slice(1)]){
 const galleries={
   porsche:{title:'Klassische Automobile',images:[['porsche-silber','Silberner Porsche vor einem historischen Hof'],['porsche-weiss','Weißer Porsche vor einem historischen Gebäude'],['porsche-duo','Silberner und grüner Porsche unter Bäumen']]},
   details:{title:'Ein Blick fürs Detail',images:[['porsche-front','Scheinwerfer und Front eines weißen Porsche'],['porsche-detail','Carrera Schriftzug und Rückleuchten']]},
-  puch:{title:'Puch X30 Turbo',images:[['puch','Blaues Puch X30 Turbo auf einer Herbstallee'],['puch-tank','Puch X30 Turbo Tank im Detail'],['puch-tacho','Tachometer des Puch-Mopeds']]},
   moments:{title:'Bleibende Eindrücke',images:[['porsche-trio','Drei klassische Porsche vor einer Scheune'],['porsche-detail','Heck eines silbernen Porsche Carrera'],['porsche-duo','Zwei Porsche-Klassiker unter alten Bäumen']]},
-  wheel:{title:'Unsere Welt der Klassiker',images:[['porsche-weiss','Weißer Porsche vor einem historischen Gebäude'],['puch','Blaues Puch X30 Turbo auf einer Herbstallee'],['porsche-detail','Silberner Porsche Carrera im Detail'],['porsche-silber','Silberner Porsche vor einem historischen Hof'],['puch-tank','Chromtank des Puch X30 Turbo'],['porsche-trio','Drei Generationen klassischer Porsche'],['lifestyle','Ein Abend mit einem roten Klassiker'],['porsche-front','Die zeitlose Front eines weißen Porsche']]}
+  wheel:{title:'Unsere Welt der Klassiker',images:[['porsche-weiss','Weißer Porsche vor einem historischen Gebäude'],['auto-porsche-pink','Nahaufnahme des Hecks eines pinkfarbenen Porsche mit schwarzem Rad und Heckspoiler'],['porsche-detail','Silberner Porsche Carrera im Detail'],['porsche-silber','Silberner Porsche vor einem historischen Hof'],['auto-porsche-duo','Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof'],['porsche-trio','Drei Generationen klassischer Porsche'],['lifestyle','Ein Abend mit einem roten Klassiker'],['porsche-front','Die zeitlose Front eines weißen Porsche']]}
 };
 // This additional collection is used only by the Automobile page.
 if (document.body.dataset.page === 'automobile') {
@@ -149,46 +148,6 @@ if(form){
   });
 }
 
-// Two aligned images reveal the potential of a classic in any condition.
-document.querySelectorAll('[data-condition-comparison]').forEach(stage=>{
-  const range=stage.querySelector('.condition-range');
-  const foundLabel=stage.querySelector('.condition-label-found');
-  const restoredLabel=stage.querySelector('.condition-label-restored');
-  let pointer=null;
-  function update(value){
-    const split=Math.min(100,Math.max(0,Number(value)));
-    if(!Number.isFinite(split))return;
-    range.value=String(split);
-    stage.style.setProperty('--condition-split',split+'%');
-    range.setAttribute('aria-valuetext',`${Math.round(split)} Prozent Scheunenfund, ${Math.round(100-split)} Prozent restauriert`);
-    foundLabel.hidden=split<20;
-    restoredLabel.hidden=split>80;
-  }
-  function move(event){
-    const rect=stage.getBoundingClientRect();
-    if(rect.width)update((event.clientX-rect.left)/rect.width*100);
-  }
-  range.addEventListener('pointerdown',event=>{
-    if(event.button!==0||!event.isPrimary)return;
-    event.preventDefault();
-    pointer=event.pointerId;
-    range.focus({preventScroll:true});
-    range.setPointerCapture(pointer);
-    move(event);
-  });
-  range.addEventListener('pointermove',event=>{if(event.pointerId===pointer)move(event);});
-  function release(event){
-    if(event.pointerId!==pointer)return;
-    pointer=null;
-    if(range.hasPointerCapture(event.pointerId))range.releasePointerCapture(event.pointerId);
-  }
-  range.addEventListener('pointerup',release);
-  range.addEventListener('pointercancel',release);
-  range.addEventListener('lostpointercapture',()=>{pointer=null;});
-  range.addEventListener('input',()=>update(range.value));
-  update(range.value);
-});
-
 // Automobile headline: absolute scroll progress makes the two lines reversible.
 const automobileStage = document.querySelector('body[data-page="automobile"] [data-auto-stage]');
 if (automobileStage) {
@@ -238,4 +197,70 @@ if (automobileStage) {
   }, { rootMargin: '100px' }).observe(automobileStage);
   document.fonts.ready.then(measure);
   measure();
+}
+
+// Home-page services: all words stay still; only colour and the visual description change.
+const porscheServices = document.querySelector('body[data-page="index"] [data-porsche-services]');
+if (porscheServices) {
+  const pin = porscheServices.querySelector('.porsche-services__pin');
+  const panels = [...porscheServices.querySelectorAll('.porsche-services__panel')];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const glass = document.createElement('div');
+  glass.className = 'porsche-services__glass';
+  // This visual duplicate is excluded from accessibility; the original article text remains readable.
+  glass.setAttribute('aria-hidden', 'true');
+  const descriptions = panels.map(panel => {
+    const copy = document.createElement('p');
+    copy.className = 'porsche-services__glass-copy';
+    copy.textContent = panel.querySelector('.porsche-services__copy').textContent;
+    glass.append(copy);
+    return copy;
+  });
+  porscheServices.querySelector('.porsche-services__stage').append(glass);
+  let frame = 0, visible = true, start = 0, distance = 1;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const ease = value => value * value * (3 - 2 * value);
+  function render() {
+    frame = 0;
+    if (reduced.matches) return;
+    const progress = clamp((window.scrollY - start) / distance);
+    const phase = ease(clamp((progress - .14) / .26)) + ease(clamp((progress - .60) / .26));
+    panels.forEach((panel, index) => {
+      const offset = index - phase;
+      const weight = clamp(1 - Math.abs(offset));
+      panel.style.setProperty('--services-active', `${(weight * 100).toFixed(3)}%`);
+      // Fade out before the next text enters, so two descriptions never overlap visibly.
+      const opacity = ease(clamp((.5 - Math.abs(offset)) / .22));
+      descriptions[index].style.setProperty('--services-copy-opacity', opacity.toFixed(4));
+      descriptions[index].style.setProperty('--services-copy-y', `${(Math.max(-1, Math.min(1, offset)) * 10).toFixed(3)}px`);
+    });
+  }
+  function schedule() { if (!frame && !reduced.matches) frame = requestAnimationFrame(render); }
+  function measure() {
+    start = porscheServices.getBoundingClientRect().top + window.scrollY;
+    distance = Math.max(1, porscheServices.offsetHeight - pin.offsetHeight);
+    schedule();
+  }
+  function configure() {
+    if (frame) cancelAnimationFrame(frame);
+    frame = 0;
+    porscheServices.classList.toggle('porsche-services--motion', !reduced.matches);
+    panels.forEach(panel => panel.style.removeProperty('--services-active'));
+    descriptions.forEach(copy => {
+      copy.style.removeProperty('--services-copy-opacity');
+      copy.style.removeProperty('--services-copy-y');
+    });
+    measure();
+  }
+  window.addEventListener('scroll', () => { if (visible) schedule(); }, { passive: true });
+  window.addEventListener('resize', measure, { passive: true });
+  window.addEventListener('pageshow', measure);
+  reduced.addEventListener('change', configure);
+  new ResizeObserver(measure).observe(pin);
+  new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    if (visible) measure();
+  }, { rootMargin: '100px' }).observe(porscheServices);
+  document.fonts.ready.then(measure);
+  configure();
 }

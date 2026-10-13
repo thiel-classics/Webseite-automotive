@@ -7,15 +7,15 @@
   <link rel="stylesheet" href="./assets/fonts.css"><link rel="stylesheet" href="./styles.css">
   <link rel="preload" as="font" type="font/ttf" href="./assets/display-font-0.woff2" crossorigin>
   
-  <script src="./config.js" defer></script><script src="./app.js" defer></script>
+  <script src="./config.js" defer></script><script src="./app.js" defer></script><script src="./porsche-sale.js" defer></script>
 </head><body data-page="automobile">
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 <header class="header" id="header">
   <a class="brand" href="./index.html" aria-label="Thiel Classics – Startseite"><img src="./assets/logo.webp" width="217" height="66" alt="Thiel Classics" translate="no"></a>
-  <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./zweiraeder.html">Zweiräder</a><a href="./automobile.html" class="active" aria-current="page">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html">Ankauf</a></nav>
+  <nav class="desktop-nav" aria-label="Hauptnavigation"><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./automobile.html" class="active" aria-current="page">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html">Ankauf</a></nav>
   <a class="button header-cta" href="./ankauf.html">Fahrzeug verkaufen <span aria-hidden="true">↗</span></a>
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span>Menü</span><i aria-hidden="true"></i></button>
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation" hidden><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./zweiraeder.html">Zweiräder</a><a href="./automobile.html" class="active" aria-current="page">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html">Ankauf</a></nav>
+  <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation" hidden><a href="./index.html">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./automobile.html" class="active" aria-current="page">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html">Ankauf</a></nav>
 </header>
 <main id="inhalt" tabindex="-1"><section class="auto-editorial" id="automobile" aria-labelledby="auto-title">
   <div class="auto-editorial__intro wrap">
@@ -34,42 +34,33 @@
       </button>
     </figure>
   </div>
-  <div class="auto-collection wrap">
-    <div class="auto-collection__intro">
-      <span class="eyebrow">PORSCHE</span>
-      <h2>Formvollendet.<br>Unverwechselbar.</h2>
-      <p>Unverwechselbare Silhouetten, über Generationen hinweg.</p>
-    </div>
-    <figure class="auto-collection__lead">
-      <button type="button" class="photo-button auto-image" data-gallery="auto-editorial" data-image="1" aria-label="Silbernen und grünen Porsche unter Bäumen vergrößern">
-        <img src="./assets/auto-porsche-duo-1440.webp" srcset="./assets/auto-porsche-duo-640.webp 640w, ./assets/auto-porsche-duo-1440.webp 1280w" sizes="(max-width: 600px) calc(100vw - 88px), (max-width: 1000px) 47vw, 36vw" width="1280" height="1600" loading="lazy" decoding="async" alt="Silberner und grüner Porsche nebeneinander unter einem großen Baum">
-        <span class="photo-plus" aria-hidden="true">↗</span>
-      </button>
-      <figcaption><span class="eyebrow">AUS UNSERER BILDWELT</span><span class="caption-number">01</span></figcaption>
-    </figure>
-    <div class="auto-collection__side">
-      <div class="auto-collection__pair">
-        <figure class="auto-collection__white">
-          <button type="button" class="photo-button auto-image" data-gallery="auto-editorial" data-image="2" aria-label="Weißen Porsche vor dem historischen Gebäude vergrößern">
-            <img src="./assets/auto-porsche-weiss-1440.webp" srcset="./assets/auto-porsche-weiss-640.webp 640w, ./assets/auto-porsche-weiss-1440.webp 1170w" sizes="(max-width: 600px) 45vw, (max-width: 1000px) 24vw, 19vw" width="1170" height="1560" loading="lazy" decoding="async" alt="Weißer klassischer Porsche vor einem hellen historischen Gebäude">
-            <span class="photo-plus" aria-hidden="true">↗</span>
-          </button>
-        </figure>
-        <figure class="auto-collection__pink">
-          <button type="button" class="photo-button auto-image" data-gallery="auto-editorial" data-image="3" aria-label="Heckdetail des pinken Porsche vergrößern">
-            <img src="./assets/auto-porsche-pink-1440.webp" srcset="./assets/auto-porsche-pink-640.webp 640w, ./assets/auto-porsche-pink-1440.webp 1024w" sizes="(max-width: 600px) 37vw, (max-width: 1000px) 20vw, 16vw" width="1024" height="1405" loading="lazy" decoding="async" alt="Pinkes Porsche-Heck mit schwarzem Heckflügel und schwarzem Hinterrad">
-            <span class="photo-plus" aria-hidden="true">↗</span>
-          </button>
-        </figure>
-      </div>
-      <div class="auto-collection__detail">
-        <div class="auto-collection__detail-top"><span class="eyebrow">EIN BLICK FÜRS DETAIL</span><span class="caption-number">02</span></div>
-        <h3>Schönheit, die bleibt.</h3>
-        <p>Klare Formen. Echte Materialien. Und eine Ausstrahlung, die keine Erklärung braucht.</p>
-        <a class="text-link" href="./ankauf.html">Ihren Klassiker anbieten <span aria-hidden="true">↗</span></a>
+  <section class="porsche-sale wrap" id="porsche-verkaufen" aria-labelledby="porsche-sale-title">
+    <div class="porsche-sale__media porsche-sale__glass">
+      <div class="porsche-sale__player" data-porsche-film>
+        <video id="porsche-sale-film" src="./assets/thiel-classics-reel.mp4" width="1080" height="1920" controls playsinline preload="none" poster="./assets/thiel-classics-reel-poster.webp" aria-label="Thiel Classics – was wir machen: Ankauf, Vermittlung und Verkauf von Porsche">
+          <p>Das Video lässt sich in diesem Browser nicht abspielen. <a href="./assets/thiel-classics-reel.mp4">Video öffnen</a></p>
+        </video>
+        <button class="porsche-sale__play" type="button" aria-label="Video mit Ton abspielen" aria-controls="porsche-sale-film" hidden>
+          <svg width="25" height="28" viewBox="0 0 25 28" aria-hidden="true" focusable="false"><path d="M5 3 22 14 5 25Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </button>
+        <p class="porsche-sale__video-status" role="status" hidden></p>
       </div>
     </div>
-  </div>
+    <div class="porsche-sale__content porsche-sale__glass">
+      <span class="porsche-sale__eyebrow">PORSCHE VERKAUFEN</span>
+      <h2 id="porsche-sale-title">Ihr Porsche. <em>In den richtigen Händen.</em></h2>
+      <div class="porsche-sale__copy">
+        <p>Ein Porsche ist selten nur ein Fahrzeug. Mit ihm verbinden sich Erinnerungen, besondere Wege und eine Geschichte, die seinen Charakter prägt. Wer sich für einen Verkauf entscheidet, wünscht sich deshalb einen persönlichen und respektvollen Umgang.</p>
+        <p>Bei Thiel Classics nehmen wir uns Zeit, Ihr Fahrzeug kennenzulernen. Wir betrachten Zustand, Historie und Besonderheiten sorgfältig und besprechen mit Ihnen offen, welcher Weg am besten passt: ein direkter Ankauf oder eine persönliche Vermittlung.</p>
+        <p>Unser Anspruch ist ein klarer, angenehmer Ablauf und eine Präsentation, die Ihrem Porsche gerecht wird. Persönlich, diskret und mit echter Begeisterung für klassische und zeitlose Fahrzeuge.</p>
+      </div>
+      <div class="porsche-sale__invitation">
+        <p><strong>Sie möchten Ihren Porsche verkaufen?</strong></p>
+        <p>Dann freuen wir uns darauf, mehr über Ihr Fahrzeug und seine Geschichte zu erfahren.</p>
+      </div>
+      <a class="porsche-sale__cta" href="./ankauf.html">Porsche anbieten <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 </section><section class="automobile-note"><div class="wrap story"><span class="eyebrow">BERATUNG & VERMITTLUNG</span><div><h2>Das richtige Fahrzeug.<br><em>Ein gutes Gefühl.</em></h2><p>Ein Klassiker ist eine persönliche Entscheidung. Wir sprechen mit Ihnen über Modell, Zustand, Historie und die Erwartungen an Ihr Fahrzeug – ob für regelmäßige Ausfahrten oder als Teil einer Sammlung.</p><p>Sie möchten ein besonderes Automobil weitergeben oder suchen einen bestimmten Klassiker? Wir besprechen mit Ihnen, ob Ankauf, Suche oder Vermittlung der passende Weg ist.</p><a class="text-link" href="mailto:thieltrading@web.de?subject=Automobil%20%E2%80%93%20Beratung%20und%20Vermittlung">Persönlich ins Gespräch kommen <span aria-hidden="true">↗</span></a></div></div></section><section class="references wrap section-space" id="einblicke" aria-labelledby="reference-title"><div class="section-heading reveal"><div><span class="eyebrow">REFERENZEN & EINBLICKE</span><h2 id="reference-title">BLEIBENDE<br><em>Eindrücke.</em></h2></div><p>Fahrzeuge, Begegnungen und die kleinen Details dazwischen.</p></div><div class="reference-grid"><figure class="reference-tall reveal"><button class="photo-button" data-gallery="moments" aria-label="Porsche-Trio in der Bildgalerie ansehen"><img src="./assets/porsche-trio-1440.webp" srcset="./assets/porsche-trio-640.webp 640w, ./assets/porsche-trio-1440.webp 1440w" sizes="(max-width: 600px) 100vw, 53vw" width="1440" height="2160" loading="lazy" alt="Drei klassische Porsche vor einer historischen Scheune"><span class="photo-plus" aria-hidden="true">↗</span></button><figcaption><span>Generationen unter sich.</span><span>PORSCHE KLASSIKER</span></figcaption></figure><figure class="reference-detail reveal"><button class="photo-button" data-gallery="moments" data-image="1" aria-label="Porsche Carrera Heckdetail vergrößern"><img src="./assets/porsche-detail-640.webp" width="640" height="800" loading="lazy" alt="Licht und Schatten auf dem Heck eines silbernen Porsche Carrera"><span class="photo-plus" aria-hidden="true">↗</span></button><figcaption><span>Auf die Details kommt es an.</span><span>CARRERA</span></figcaption></figure></div></section><section class="closing wrap"><span class="eyebrow">VON LIEBHABERN. FÜR LIEBHABER.</span><h2>IHR KLASSIKER.<br><em>Unser nächstes Kapitel?</em></h2><div><p>Wir freuen uns darauf, Ihr Fahrzeug und seine Geschichte kennenzulernen.</p><a class="button red" href="./ankauf.html">Fahrzeug verkaufen <span aria-hidden="true">↗</span></a></div></section></main>
 <footer><div class="wrap"><div class="footer-top"><a href="./index.html" class="brand"><img src="./assets/logo.webp" width="217" height="66" alt="Thiel Classics – Startseite" loading="lazy"></a><p>Automobile. Zweiräder.<br>Und die Begeisterung dazwischen.</p><a href="./ankauf.html" class="text-link">Fahrzeug verkaufen <span aria-hidden="true">↗</span></a></div><div class="footer-bottom"><span>© <span id="copyright-year">2026</span> Thiel Classics</span><span>KLASSIKER MIT GESCHICHTE.</span><nav aria-label="Rechtliche Informationen"><a href="./impressum.html">Impressum</a><a href="./datenschutz.html">Datenschutz</a></nav><a href="#inhalt">Nach oben ↑</a></div></div></footer>
 <dialog id="gallery-dialog" class="gallery-dialog" aria-labelledby="gallery-title"><button type="button" class="dialog-close" aria-label="Bildansicht schließen">×</button><img class="gallery-image" width="1440" height="1600" alt=""><div class="gallery-info"><div><h2 id="gallery-title">Unsere Bildwelt</h2><p>Einblicke in unsere Leidenschaft für Klassiker.</p></div><div class="gallery-controls"><button type="button" data-direction="-1" aria-label="Vorheriges Bild">←</button><span class="gallery-count" aria-live="polite"></span><button type="button" data-direction="1" aria-label="Nächstes Bild">→</button></div></div></dialog>
