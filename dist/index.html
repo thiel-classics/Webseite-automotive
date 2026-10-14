@@ -4,10 +4,10 @@
   <meta name="theme-color" content="#f7f6f2"><title>Klassiker mit Geschichte | Thiel Classics</title>
   <meta name="description" content="Handverlesene klassische Automobile und Zweiräder. Entdecken Sie Thiel Classics und bieten Sie uns Ihren Klassiker an.">
   <link rel="icon" type="image/png" href="./assets/favicon.png">
-  <link rel="stylesheet" href="./assets/fonts.css"><link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./assets/fonts.css"><link rel="stylesheet" href="./styles.css"><link rel="stylesheet" href="./hero-911.css">
   <link rel="preload" as="font" type="font/ttf" href="./assets/display-font-0.woff2" crossorigin>
-  <link rel="preload" as="image" href="./assets/hero-float-weiss-780.webp" imagesrcset="./assets/hero-float-weiss-400.webp 400w, ./assets/hero-float-weiss-780.webp 780w" imagesizes="(max-width: 600px) 43vw, (max-width: 1000px) 37vw, 27vw">
-  <script src="./config.js" defer></script><script src="./app.js" defer></script>
+  <link rel="preload" as="image" href="./assets/hero-911-studio.png" fetchpriority="high">
+  <script src="./config.js" defer></script><script src="./app.js" defer></script><script src="./hero-911.js" defer></script>
 </head><body data-page="index">
 <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
 <header class="header" id="header">
@@ -17,46 +17,49 @@
   <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav"><span>Menü</span><i aria-hidden="true"></i></button>
   <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile Hauptnavigation" hidden><a href="./index.html" class="active" aria-current="page">Startseite</a><a href="./ueber-uns.html">Über uns</a><a href="./automobile.html">Automobile</a><a href="./bestand.html">Unser Bestand</a><a href="./ankauf.html">Ankauf</a></nav>
 </header>
-<main id="inhalt" tabindex="-1"><section class="hero-scene" id="start" aria-labelledby="hero-title" data-hero-scene>
-        <div class="hero-scene__stage">
-          <div class="hero-scene__atmosphere" aria-hidden="true"></div>
-          <div class="hero-scene__layout">
-            <div class="hero-scene__copy">
-              <p class="hero-scene__eyebrow">OLDTIMER · YOUNGTIMER · KLASSIKER</p>
-              <h1 id="hero-title" class="hero-scene__title"><span class="hero-scene__serif">Klassiker mit<br>Geschichte.</span><span class="hero-scene__bold">AUSGEWÄHLT MIT<br><span>LEIDENSCHAFT.</span></span></h1>
-              <p class="hero-scene__description">Besondere Fahrzeuge.<br>Für Menschen mit Begeisterung.</p>
-              <a class="button hero-scene__cta" href="./bestand.html">Fahrzeuge entdecken <span aria-hidden="true">↗</span></a>
-            </div>
-            <div class="hero-scene__art">
-              <div class="hero-scene__grid" aria-hidden="true"></div>
-              <div class="hero-scene__orbit" aria-hidden="true"></div>
-              <span class="hero-scene__orb hero-scene__orb--near" aria-hidden="true"></span>
-              <span class="hero-scene__orb hero-scene__orb--far" aria-hidden="true"></span>
-              <figure class="hero-scene__card hero-scene__card--ghost hero-scene__card--front" data-hero-layer="front" aria-hidden="true">
-                <img src="./assets/porsche-front-640.webp" width="640" height="423" alt="" decoding="async" fetchpriority="low" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--ghost hero-scene__card--tank" data-hero-layer="tank" aria-hidden="true">
-                <img src="./assets/puch-tank-640.webp" width="640" height="960" alt="" decoding="async" fetchpriority="low" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--ghost hero-scene__card--lifestyle" data-hero-layer="lifestyle" aria-hidden="true">
-                <img src="./assets/lifestyle-640.webp" width="640" height="960" alt="" decoding="async" fetchpriority="low" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--main hero-scene__card--weiss" data-hero-layer="weiss">
-                <img src="./assets/hero-float-weiss-780.webp" srcset="./assets/hero-float-weiss-400.webp 400w, ./assets/hero-float-weiss-780.webp 780w" sizes="(max-width: 600px) 43vw, (max-width: 1000px) 37vw, 27vw" width="780" height="1033" alt="Weißer Porsche vor einem historischen Gebäude" fetchpriority="high" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--main hero-scene__card--carrera" data-hero-layer="carrera">
-                <img src="./assets/hero-float-carrera-780.webp" srcset="./assets/hero-float-carrera-400.webp 400w, ./assets/hero-float-carrera-780.webp 780w" sizes="(max-width: 600px) 43vw, (max-width: 1000px) 26vw, 20vw" width="780" height="951" alt="Heck eines silbernen Porsche Carrera im Licht unter Bäumen" decoding="async" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--main hero-scene__card--trio" data-hero-layer="trio">
-                <img src="./assets/hero-float-trio-780.webp" srcset="./assets/hero-float-trio-400.webp 400w, ./assets/hero-float-trio-780.webp 780w" sizes="(max-width: 600px) 43vw, (max-width: 1000px) 27vw, 20vw" width="780" height="1156" alt="Drei klassische Porsche vor einer historischen Scheune" decoding="async" draggable="false">
-              </figure>
-              <figure class="hero-scene__card hero-scene__card--main hero-scene__card--puch" data-hero-layer="puch">
-                <img src="./assets/auto-porsche-duo-1440.webp" srcset="./assets/auto-porsche-duo-640.webp 640w, ./assets/auto-porsche-duo-1440.webp 1280w" sizes="(max-width: 600px) 43vw, (max-width: 1000px) 31vw, 23vw" width="1280" height="1600" alt="Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof" decoding="async" draggable="false">
-              </figure>
-            </div>
-          </div>
-        </div>
-      </section><section class="wheel-section" aria-labelledby="wheel-title"><div class="wrap wheel-heading"><span class="eyebrow">EINE LEIDENSCHAFT. VIELE PERSPEKTIVEN.</span><h2 id="wheel-title">Zeitlos. <em>In Bewegung.</em></h2><p>Einblicke in unsere Welt der Klassiker.</p></div><div class="image-wheel" data-image-wheel role="region" aria-label="Bilderkarussell mit Fahrzeugen"><div class="wheel-stage"><button class="wheel-card" type="button" data-gallery="wheel" data-image="0" aria-label="Weißer Porsche vor einem historischen Gebäude – Bild vergrößern" style="--card-index:0"><img src="./assets/porsche-weiss-640.webp" width="640" height="850" alt="Weißer Porsche vor einem historischen Gebäude" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="1" aria-label="Nahaufnahme des Hecks eines pinkfarbenen Porsche mit schwarzem Rad und Heckspoiler – Bild vergrößern" style="--card-index:1"><img src="./assets/auto-porsche-pink-640.webp" srcset="./assets/auto-porsche-pink-640.webp 640w, ./assets/auto-porsche-pink-1440.webp 1024w" sizes="(max-width: 600px) 42vw, (max-width: 1370px) 23.5vw, 322px" width="640" height="878" alt="Nahaufnahme des Hecks eines pinkfarbenen Porsche mit schwarzem Rad und Heckspoiler" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="2" aria-label="Silberner Porsche Carrera im Detail – Bild vergrößern" style="--card-index:2"><img src="./assets/porsche-detail-640.webp" width="640" height="850" alt="Silberner Porsche Carrera im Detail" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="3" aria-label="Silberner Porsche vor einem historischen Hof – Bild vergrößern" style="--card-index:3"><img src="./assets/porsche-silber-640.webp" width="640" height="850" alt="Silberner Porsche vor einem historischen Hof" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="4" aria-label="Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof – Bild vergrößern" style="--card-index:4"><img src="./assets/auto-porsche-duo-640.webp" srcset="./assets/auto-porsche-duo-640.webp 640w, ./assets/auto-porsche-duo-1440.webp 1280w" sizes="(max-width: 600px) 42vw, (max-width: 1370px) 23.5vw, 322px" width="640" height="800" alt="Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="5" aria-label="Drei Generationen klassischer Porsche – Bild vergrößern" style="--card-index:5"><img src="./assets/porsche-trio-640.webp" width="640" height="850" alt="Drei Generationen klassischer Porsche" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="6" aria-label="Ein Abend mit einem roten Klassiker – Bild vergrößern" style="--card-index:6"><img src="./assets/lifestyle-640.webp" width="640" height="850" alt="Ein Abend mit einem roten Klassiker" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="7" aria-label="Die zeitlose Front eines weißen Porsche – Bild vergrößern" style="--card-index:7"><img src="./assets/porsche-front-640.webp" width="640" height="850" alt="Die zeitlose Front eines weißen Porsche" loading="lazy" draggable="false"></button></div></div></section><section class="porsche-services" id="bildwelt" aria-labelledby="services-title" data-porsche-services>
+<main id="inhalt" tabindex="-1"><section class="studio-hero" id="start" aria-labelledby="hero-title" data-studio-hero>
+  <h1 class="studio-hero__title" id="hero-title">Porsche 911 – Thiel Classics</h1>
+  <svg class="studio-hero__scene" viewBox="0 108 1536 916" width="1536" height="916" role="img" aria-labelledby="studio-description" focusable="false">
+    <title id="studio-description">Weißer Porsche 911 vor einer großen roten 911 in einem hellen Studio mit spiegelndem, rot-weißem Boden.</title>
+    <defs>
+      <!-- The reference's pictured navigation is outside this crop. The real header stays untouched. -->
+      <clipPath id="studio-crop"><rect x="0" y="108" width="1536" height="916"/></clipPath>
+      <linearGradient id="studio-photo-fade" x1="0" y1="108" x2="0" y2="1024" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#000"/><stop offset=".025" stop-color="#fff"/>
+        <stop offset=".88" stop-color="#fff"/><stop offset="1" stop-color="#000"/>
+      </linearGradient>
+      <mask id="studio-photo-mask" maskUnits="userSpaceOnUse" x="0" y="108" width="1536" height="916"><rect x="0" y="108" width="1536" height="916" fill="url(#studio-photo-fade)"/></mask>
+      <linearGradient id="studio-room" x1="0" y1="0" x2="0" y2="1">
+        <stop stop-color="#eae9e9"/><stop offset="1" stop-color="#eae9e9"/>
+      </linearGradient>
+      <linearGradient id="studio-floor" x1="0" y1="0" x2="1536" y2="0" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#f7f7f7"/><stop offset=".3" stop-color="#fdfcfc"/><stop offset=".52" stop-color="#f8f8f9"/><stop offset=".65" stop-color="#eee5e5"/><stop offset="1" stop-color="#e9e9e9"/>
+      </linearGradient>
+      <linearGradient id="studio-red" x1="879" y1="1024" x2="1180" y2="1024" gradientUnits="userSpaceOnUse">
+        <stop stop-color="#e97476"/><stop offset=".4" stop-color="#e06568"/><stop offset="1" stop-color="#efabad"/>
+      </linearGradient>
+      <g id="studio-floor-art">
+        <rect x="-3000" y="-3000" width="7500" height="8000" fill="url(#studio-room)"/>
+        <!-- Extend only the floor; the vehicle and numerals are never stretched. -->
+        <rect x="-3000" y="900" width="7500" height="4200" fill="url(#studio-floor)"/>
+        <path d="M866 900 L1069 900 L4237 5000 L1174 5000 Z" fill="url(#studio-red)"/>
+        <path d="M1314 900 L1700 900 L8500 5000 L8008 5000 Z" fill="#efb4b0"/>
+        <path d="M0 900 L205 900 L0 985 Z" fill="#efaead"/>
+      </g>
+    </defs>
+    <use href="#studio-floor-art"/>
+    <image class="studio-hero__photo" href="./assets/hero-911-studio.png" x="0" y="0" width="1536" height="1024" clip-path="url(#studio-crop)"/>
+  </svg>
+  <div class="studio-hero__transition" aria-hidden="true">
+    <div class="studio-hero__fold">
+      <svg class="studio-hero__continuation" viewBox="0 1024 1536 148" width="1536" height="148" preserveAspectRatio="none" focusable="false">
+        <use href="#studio-floor-art"/>
+        <image href="./assets/hero-911-studio.png" x="0" y="0" width="1536" height="1024" clip-path="url(#studio-crop)" mask="url(#studio-photo-mask)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+<section class="wheel-section" aria-labelledby="wheel-title"><div class="wrap wheel-heading"><span class="eyebrow">EINE LEIDENSCHAFT. VIELE PERSPEKTIVEN.</span><h2 id="wheel-title">Zeitlos. <em>In Bewegung.</em></h2><p>Einblicke in unsere Welt der Klassiker.</p></div><div class="image-wheel" data-image-wheel role="region" aria-label="Bilderkarussell mit Fahrzeugen"><div class="wheel-stage"><button class="wheel-card" type="button" data-gallery="wheel" data-image="0" aria-label="Weißer Porsche vor einem historischen Gebäude – Bild vergrößern" style="--card-index:0"><img src="./assets/porsche-weiss-640.webp" width="640" height="850" alt="Weißer Porsche vor einem historischen Gebäude" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="1" aria-label="Nahaufnahme des Hecks eines pinkfarbenen Porsche mit schwarzem Rad und Heckspoiler – Bild vergrößern" style="--card-index:1"><img src="./assets/auto-porsche-pink-640.webp" srcset="./assets/auto-porsche-pink-640.webp 640w, ./assets/auto-porsche-pink-1440.webp 1024w" sizes="(max-width: 600px) 42vw, (max-width: 1370px) 23.5vw, 322px" width="640" height="878" alt="Nahaufnahme des Hecks eines pinkfarbenen Porsche mit schwarzem Rad und Heckspoiler" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="2" aria-label="Silberner Porsche Carrera im Detail – Bild vergrößern" style="--card-index:2"><img src="./assets/porsche-detail-640.webp" width="640" height="850" alt="Silberner Porsche Carrera im Detail" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="3" aria-label="Silberner Porsche vor einem historischen Hof – Bild vergrößern" style="--card-index:3"><img src="./assets/porsche-silber-640.webp" width="640" height="850" alt="Silberner Porsche vor einem historischen Hof" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="4" aria-label="Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof – Bild vergrößern" style="--card-index:4"><img src="./assets/auto-porsche-duo-640.webp" srcset="./assets/auto-porsche-duo-640.webp 640w, ./assets/auto-porsche-duo-1440.webp 1280w" sizes="(max-width: 600px) 42vw, (max-width: 1370px) 23.5vw, 322px" width="640" height="800" alt="Silberner und grüner klassischer Porsche unter Bäumen auf einem Hof" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="5" aria-label="Drei Generationen klassischer Porsche – Bild vergrößern" style="--card-index:5"><img src="./assets/porsche-trio-640.webp" width="640" height="850" alt="Drei Generationen klassischer Porsche" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="6" aria-label="Ein Abend mit einem roten Klassiker – Bild vergrößern" style="--card-index:6"><img src="./assets/lifestyle-640.webp" width="640" height="850" alt="Ein Abend mit einem roten Klassiker" loading="lazy" draggable="false"></button><button class="wheel-card" type="button" data-gallery="wheel" data-image="7" aria-label="Die zeitlose Front eines weißen Porsche – Bild vergrößern" style="--card-index:7"><img src="./assets/porsche-front-640.webp" width="640" height="850" alt="Die zeitlose Front eines weißen Porsche" loading="lazy" draggable="false"></button></div></div></section><section class="porsche-services" id="bildwelt" aria-labelledby="services-title" data-porsche-services>
   <div class="porsche-services__pin wrap">
     <h2 class="porsche-services__title" id="services-title">Klassische und zeitlose <em>Porsche.</em></h2>
     <div class="porsche-services__stage">
