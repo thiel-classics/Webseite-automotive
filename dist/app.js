@@ -49,7 +49,15 @@ galleryDialog.addEventListener('close',()=>{document.body.classList.remove('moda
 // Project cards onto a shallow tilted ring. A frame is requested only after input.
 const wheel=document.querySelector('[data-image-wheel]');
 if(wheel){
-  const cards=[...wheel.querySelectorAll('.wheel-card')];
+  const allCards=[...wheel.querySelectorAll('.wheel-card')];
+  const mobileSources=[...wheel.querySelectorAll('[data-wheel-mobile]')];
+  // The existing 600px phone breakpoint also follows a touch phone into landscape.
+  const mobile=matchMedia(mobileSources[0].media);
+  const desktopGallery=galleries.wheel;
+  const mobileGallery={title:desktopGallery.title,images:mobileSources.map(source=>[source.dataset.wheelMobile,source.dataset.mobileAlt])};
+  const desktopLabels=allCards.map(card=>({alt:card.querySelector('img').alt,label:card.getAttribute('aria-label')}));
+  const mobileOrder=[2,0,4,3];
+  let cards=allCards,usingMobile=null;
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   let width=wheel.clientWidth,cardWidth=0,angle=.12,frame=0,visible=false,lastY=window.scrollY;
   let drag=null,moved=false,suppressClick=false;
@@ -69,11 +77,45 @@ if(wheel){
     });
   };
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(render);};
-  wheel.classList.add('wheel-ready');cardWidth=cards[0].offsetWidth;render();
+  const selectImages=()=>{
+    const nextCards=mobile.matches?allCards.slice(0,mobileSources.length):allCards;
+    if(usingMobile!==null&&usingMobile!==mobile.matches){
+      // Keep the frontmost photograph at the same angle when changing collections.
+      const front=((Math.round(-angle/(Math.PI*2)*cards.length)%cards.length)+cards.length)%cards.length;
+      const photo=usingMobile?mobileOrder[front]:front;
+      const nextFront=mobile.matches?Math.max(0,mobileOrder.indexOf(photo)):photo;
+      angle+=front/cards.length*Math.PI*2-nextFront/nextCards.length*Math.PI*2;
+      if(galleryKey==='wheel'&&galleryDialog.open){
+        const openPhoto=usingMobile?mobileOrder[galleryIndex]:galleryIndex;
+        galleryIndex=mobile.matches?Math.max(0,mobileOrder.indexOf(openPhoto)):openPhoto;
+        galleryTrigger=nextCards[galleryIndex];
+      }
+    }
+    const focusedCard=allCards.includes(document.activeElement)?document.activeElement:null;
+    if(drag&&wheel.hasPointerCapture(drag.id))wheel.releasePointerCapture(drag.id);
+    drag=null;moved=false;suppressClick=false;wheel.classList.remove('dragging');
+    usingMobile=mobile.matches;cards=nextCards;
+    galleries.wheel=usingMobile?mobileGallery:desktopGallery;
+    allCards.forEach((card,index)=>{
+      card.hidden=usingMobile&&index>=mobileSources.length;
+      const alt=usingMobile&&index<mobileSources.length?mobileGallery.images[index][1]:desktopLabels[index].alt;
+      card.querySelector('img').alt=alt;
+      card.setAttribute('aria-label',usingMobile&&index<mobileSources.length?`${alt} – Bild vergrößern`:desktopLabels[index].label);
+    });
+    if(galleryKey==='wheel'&&galleryDialog.open)renderGallery();
+    if(focusedCard?.hidden)cards[0].focus({preventScroll:true});
+    width=wheel.clientWidth;cardWidth=cards[0].offsetWidth;
+    lastY=window.scrollY;
+    // Commit the new count and positions together, without an intermediate frame.
+    if(frame)cancelAnimationFrame(frame);
+    render();
+  };
+  wheel.classList.add('wheel-ready');selectImages();
+  mobile.addEventListener('change',selectImages);
   new ResizeObserver(entries=>{width=entries[0].contentRect.width;cardWidth=cards[0].offsetWidth;schedule();}).observe(wheel);
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;lastY=window.scrollY;},{rootMargin:'60px'}).observe(wheel);
   window.addEventListener('scroll',()=>{const y=window.scrollY;const delta=y-lastY;lastY=y;if(visible&&!reduced.matches&&!drag&&!galleryDialog.open){angle+=delta*.0017;schedule();}},{passive:true});
-  cards.forEach((card,index)=>card.addEventListener('focus',()=>{if(card.matches(':focus-visible')){angle=-index/cards.length*Math.PI*2;schedule();}}));
+  allCards.forEach(card=>card.addEventListener('focus',()=>{const index=cards.indexOf(card);if(index>=0&&card.matches(':focus-visible')){angle=-index/cards.length*Math.PI*2;schedule();}}));
   wheel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();angle+=(event.key==='ArrowRight'?1:-1)*Math.PI*2/cards.length;schedule();}});
   wheel.addEventListener('pointerdown',event=>{if(event.button!==0||!event.isPrimary)return;suppressClick=false;moved=false;drag={id:event.pointerId,x:event.clientX,y:event.clientY,start:angle};});
   wheel.addEventListener('pointermove',event=>{if(!drag||event.pointerId!==drag.id)return;const dx=event.clientX-drag.x,dy=event.clientY-drag.y;if(!moved&&Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8){drag=null;return;}if(Math.abs(dx)>8){moved=true;suppressClick=true;wheel.classList.add('dragging');if(!wheel.hasPointerCapture(event.pointerId))wheel.setPointerCapture(event.pointerId);}if(moved){angle=drag.start+dx*.006;schedule();}});
