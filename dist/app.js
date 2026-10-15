@@ -49,21 +49,36 @@ galleryDialog.addEventListener('close',()=>{document.body.classList.remove('moda
 // Project cards onto a shallow tilted ring. A frame is requested only after input.
 const wheel=document.querySelector('[data-image-wheel]');
 if(wheel){
-  const allCards=[...wheel.querySelectorAll('.wheel-card')];
-  const mobileSources=[...wheel.querySelectorAll('[data-wheel-mobile]')];
-  // The existing 600px phone breakpoint also follows a touch phone into landscape.
-  const mobile=matchMedia(mobileSources[0].media);
-  const desktopGallery=galleries.wheel;
-  const mobileGallery={title:desktopGallery.title,images:mobileSources.map(source=>[source.dataset.wheelMobile,source.dataset.mobileAlt])};
-  const desktopLabels=allCards.map(card=>({alt:card.querySelector('img').alt,label:card.getAttribute('aria-label')}));
-  const mobileOrder=[2,0,4,3];
-  let cards=allCards,usingMobile=null;
+  const cards=[...wheel.querySelectorAll('.wheel-card')];
+  const section=wheel.closest('.wheel-section');
+  // Use the existing phone query, including touch phones turned to landscape.
+  const mobile=matchMedia(wheel.querySelector('source').media);
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const count=cards.length;
+  const wrap=value=>((value%count)+count)%count;
+  const offset=index=>wrap(index-position+count/2)-count/2;
   let width=wheel.clientWidth,cardWidth=0,angle=.12,frame=0,visible=false,lastY=window.scrollY;
+  let position=0,snap=null,wasMobile=null;
   let drag=null,moved=false,suppressClick=false;
   const render=()=>{
     frame=0;
-    // Reserve the rotated card bounds so every image stays inside the section.
+    if(mobile.matches){
+      const active=wrap(Math.round(position));
+      cards.forEach((card,index)=>{
+        const distance=offset(index),depth=Math.min(1,Math.abs(distance));
+        const easing=depth*depth*(3-2*depth);
+        const scale=reduced.matches?1:1-easing*.055;
+        card.style.transform=`translate(-50%,-50%) translate3d(${(distance*cardWidth*.975).toFixed(2)}px,0,0) scale(${scale.toFixed(4)})`;
+        card.style.zIndex=String(100-Math.round(Math.abs(distance)*20));
+        card.style.opacity=String(reduced.matches?1:1-easing*.12);
+        const visibleRange=width/(2*cardWidth*.975)+.55;
+        card.style.visibility=Math.abs(distance)>visibleRange?'hidden':'visible';
+        card.tabIndex=index===active?0:-1;
+        card.setAttribute('aria-label',`${galleries.wheel.images[index][1]} – Bild ${index+1} von ${count} vergrößern`);
+      });
+      return;
+    }
+    // Preserve the established desktop ring geometry and motion exactly.
     const radius=Math.max(0,Math.min(550,width*.35,width/2-cardWidth*.55-16));
     const rise=width<600?48:80;
     cards.forEach((card,index)=>{
@@ -76,51 +91,99 @@ if(wheel){
       card.style.zIndex=String(Math.round(depth*100));
     });
   };
-  const schedule=()=>{if(!frame)frame=requestAnimationFrame(render);};
-  const selectImages=()=>{
-    const nextCards=mobile.matches?allCards.slice(0,mobileSources.length):allCards;
-    if(usingMobile!==null&&usingMobile!==mobile.matches){
-      // Keep the frontmost photograph at the same angle when changing collections.
-      const front=((Math.round(-angle/(Math.PI*2)*cards.length)%cards.length)+cards.length)%cards.length;
-      const photo=usingMobile?mobileOrder[front]:front;
-      const nextFront=mobile.matches?Math.max(0,mobileOrder.indexOf(photo)):photo;
-      angle+=front/cards.length*Math.PI*2-nextFront/nextCards.length*Math.PI*2;
-      if(galleryKey==='wheel'&&galleryDialog.open){
-        const openPhoto=usingMobile?mobileOrder[galleryIndex]:galleryIndex;
-        galleryIndex=mobile.matches?Math.max(0,mobileOrder.indexOf(openPhoto)):openPhoto;
-        galleryTrigger=nextCards[galleryIndex];
-      }
-    }
-    const focusedCard=allCards.includes(document.activeElement)?document.activeElement:null;
-    if(drag&&wheel.hasPointerCapture(drag.id))wheel.releasePointerCapture(drag.id);
-    drag=null;moved=false;suppressClick=false;wheel.classList.remove('dragging');
-    usingMobile=mobile.matches;cards=nextCards;
-    galleries.wheel=usingMobile?mobileGallery:desktopGallery;
-    allCards.forEach((card,index)=>{
-      card.hidden=usingMobile&&index>=mobileSources.length;
-      const alt=usingMobile&&index<mobileSources.length?mobileGallery.images[index][1]:desktopLabels[index].alt;
-      card.querySelector('img').alt=alt;
-      card.setAttribute('aria-label',usingMobile&&index<mobileSources.length?`${alt} – Bild vergrößern`:desktopLabels[index].label);
-    });
-    if(galleryKey==='wheel'&&galleryDialog.open)renderGallery();
-    if(focusedCard?.hidden)cards[0].focus({preventScroll:true});
-    width=wheel.clientWidth;cardWidth=cards[0].offsetWidth;
-    lastY=window.scrollY;
-    // Commit the new count and positions together, without an intermediate frame.
-    if(frame)cancelAnimationFrame(frame);
-    render();
+  const schedule=()=>{if(!frame&&!snap)frame=requestAnimationFrame(render);};
+  const stopSnap=()=>{if(frame)cancelAnimationFrame(frame);frame=0;snap=null;};
+  const snapTo=target=>{
+    stopSnap();
+    if(reduced.matches||Math.abs(target-position)<.001){position=wrap(target);render();return;}
+    snap={from:position,to:target,start:performance.now(),duration:Math.min(520,340+Math.abs(target-position)*100)};
+    const tick=now=>{
+      frame=0;
+      const progress=Math.min(1,(now-snap.start)/snap.duration);
+      position=snap.from+(snap.to-snap.from)*(1-Math.pow(1-progress,4));
+      render();
+      if(progress<1)frame=requestAnimationFrame(tick);
+      else{position=wrap(snap.to);snap=null;render();}
+    };
+    frame=requestAnimationFrame(tick);
   };
-  wheel.classList.add('wheel-ready');selectImages();
-  mobile.addEventListener('change',selectImages);
-  new ResizeObserver(entries=>{width=entries[0].contentRect.width;cardWidth=cards[0].offsetWidth;schedule();}).observe(wheel);
+  const measure=()=>{
+    const changing=wasMobile!==null&&wasMobile!==mobile.matches;
+    stopSnap();
+    if(changing){
+      if(mobile.matches)position=wrap(Math.round(-angle/(Math.PI*2)*count));
+      else angle=-Math.round(position)/count*Math.PI*2;
+    }
+    position=wrap(Math.round(position));
+    const previousDrag=drag;drag=null;moved=false;
+    if(previousDrag&&wheel.hasPointerCapture(previousDrag.id))wheel.releasePointerCapture(previousDrag.id);
+    wheel.classList.remove('dragging');
+    wasMobile=mobile.matches;
+    section.setAttribute('aria-labelledby',mobile.matches?'wheel-mobile-title':'wheel-title');
+    if(!mobile.matches)cards.forEach((card,index)=>{
+      card.style.removeProperty('opacity');card.style.removeProperty('visibility');card.removeAttribute('tabindex');
+      card.setAttribute('aria-label',`${galleries.wheel.images[index][1]} – Bild vergrößern`);
+    });
+    width=wheel.clientWidth;cardWidth=cards[0].offsetWidth;lastY=window.scrollY;render();
+  };
+  wheel.classList.add('wheel-ready');measure();
+  mobile.addEventListener('change',measure);
+  reduced.addEventListener('change',()=>{if(mobile.matches)snapTo(Math.round(snap?.to??position));});
+  new ResizeObserver(measure).observe(wheel);
+  // Card width also changes when a phone rotates without crossing the mobile query.
+  new ResizeObserver(measure).observe(cards[0]);
   new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;lastY=window.scrollY;},{rootMargin:'60px'}).observe(wheel);
-  window.addEventListener('scroll',()=>{const y=window.scrollY;const delta=y-lastY;lastY=y;if(visible&&!reduced.matches&&!drag&&!galleryDialog.open){angle+=delta*.0017;schedule();}},{passive:true});
-  allCards.forEach(card=>card.addEventListener('focus',()=>{const index=cards.indexOf(card);if(index>=0&&card.matches(':focus-visible')){angle=-index/cards.length*Math.PI*2;schedule();}}));
-  wheel.addEventListener('keydown',event=>{if(event.key==='ArrowLeft'||event.key==='ArrowRight'){event.preventDefault();angle+=(event.key==='ArrowRight'?1:-1)*Math.PI*2/cards.length;schedule();}});
-  wheel.addEventListener('pointerdown',event=>{if(event.button!==0||!event.isPrimary)return;suppressClick=false;moved=false;drag={id:event.pointerId,x:event.clientX,y:event.clientY,start:angle};});
-  wheel.addEventListener('pointermove',event=>{if(!drag||event.pointerId!==drag.id)return;const dx=event.clientX-drag.x,dy=event.clientY-drag.y;if(!moved&&Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8){drag=null;return;}if(Math.abs(dx)>8){moved=true;suppressClick=true;wheel.classList.add('dragging');if(!wheel.hasPointerCapture(event.pointerId))wheel.setPointerCapture(event.pointerId);}if(moved){angle=drag.start+dx*.006;schedule();}});
-  const release=event=>{if(!drag||event.pointerId!==drag.id)return;drag=null;wheel.classList.remove('dragging');if(wheel.hasPointerCapture(event.pointerId))wheel.releasePointerCapture(event.pointerId);};
-  wheel.addEventListener('pointerup',release);wheel.addEventListener('pointercancel',release);wheel.addEventListener('lostpointercapture',()=>{drag=null;wheel.classList.remove('dragging');});
+  window.addEventListener('scroll',()=>{const y=window.scrollY;const delta=y-lastY;lastY=y;if(!mobile.matches&&visible&&!reduced.matches&&!drag&&!galleryDialog.open){angle+=delta*.0017;schedule();}},{passive:true});
+  cards.forEach((card,index)=>card.addEventListener('focus',()=>{
+    if(!card.matches(':focus-visible'))return;
+    if(mobile.matches)snapTo(Math.round(position+offset(index)));
+    else{angle=-index/cards.length*Math.PI*2;schedule();}
+  }));
+  wheel.addEventListener('keydown',event=>{
+    if(event.key!=='ArrowLeft'&&event.key!=='ArrowRight')return;
+    event.preventDefault();
+    const direction=event.key==='ArrowRight'?1:-1;
+    if(mobile.matches){
+      const target=Math.round(snap?.to??position)+direction;
+      cards[wrap(target)].focus({preventScroll:true});snapTo(target);
+    }
+    else{angle+=direction*Math.PI*2/cards.length;schedule();}
+  });
+  wheel.addEventListener('pointerdown',event=>{
+    if(event.button!==0||!event.isPrimary)return;
+    if(mobile.matches)stopSnap();
+    suppressClick=false;moved=false;
+    drag={id:event.pointerId,x:event.clientX,y:event.clientY,start:mobile.matches?position:angle,lastX:event.clientX,lastTime:event.timeStamp,velocity:0};
+  });
+  wheel.addEventListener('pointermove',event=>{
+    if(!drag||event.pointerId!==drag.id)return;
+    const dx=event.clientX-drag.x,dy=event.clientY-drag.y;
+    if(!moved&&Math.abs(dy)>Math.abs(dx)&&Math.abs(dy)>8){
+      drag=null;if(mobile.matches)snapTo(Math.round(position));return;
+    }
+    if(Math.abs(dx)>8){moved=true;suppressClick=true;wheel.classList.add('dragging');if(!wheel.hasPointerCapture(event.pointerId))wheel.setPointerCapture(event.pointerId);}
+    if(!moved)return;
+    if(mobile.matches){
+      const elapsed=event.timeStamp-drag.lastTime;
+      if(elapsed>0)drag.velocity=drag.velocity*.35+(event.clientX-drag.lastX)/elapsed*.65;
+      drag.lastX=event.clientX;drag.lastTime=event.timeStamp;
+      position=drag.start-dx/(cardWidth*.975);
+    }else angle=drag.start+dx*.006;
+    schedule();
+  });
+  const release=event=>{
+    if(!drag||event.pointerId!==drag.id)return;
+    const gesture=drag;drag=null;wheel.classList.remove('dragging');
+    if(wheel.hasPointerCapture(event.pointerId))wheel.releasePointerCapture(event.pointerId);
+    if(mobile.matches){
+      const velocity=event.type==='pointercancel'||event.timeStamp-gesture.lastTime>100?0:gesture.velocity;
+      const momentum=reduced.matches?0:Math.max(-1,Math.min(1,-velocity*140/(cardWidth*.975)));
+      snapTo(Math.round(position+(moved?momentum:0)));
+    }
+  };
+  wheel.addEventListener('pointerup',release);wheel.addEventListener('pointercancel',release);
+  // Touch starts with implicit capture on the card; transferring it to the wheel is not a release.
+  wheel.addEventListener('lostpointercapture',event=>{if(drag&&(!mobile.matches||event.target===wheel)){release(event);}});
   wheel.addEventListener('click',event=>{if(suppressClick){event.preventDefault();event.stopPropagation();suppressClick=false;}},true);
 }
 

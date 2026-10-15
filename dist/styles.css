@@ -28,16 +28,37 @@ html{color-scheme:light;scroll-padding-top:110px}h1,h2,h3{text-wrap:balance}p{te
 .worlds-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px}.world-card{display:block;position:relative;overflow:hidden;aspect-ratio:1/1.05;background:#dedbd3}.world-card:after{content:'';position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#131611b3);pointer-events:none}.world-card>img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;transition:transform .5s}.world-card:hover>img{transform:scale(1.025)}.world-card>span{position:absolute;inset:auto 30px 24px;display:flex;justify-content:space-between;align-items:center;z-index:1;color:white}.world-card strong{font-family:var(--display);font-weight:600;font-size:52px}.world-card>span>span{display:grid;place-items:center;width:46px;height:46px;border:1px solid #ffffffa0;border-radius:50%;font-size:25px}.worlds+.closing{border-top:1px solid var(--line)}
 /* Responsive image sources retain the existing card geometry. */
 .wheel-card picture{display:contents}
-@media (max-width:600px), (orientation:landscape) and (max-height:600px) and (pointer:coarse){
-  .image-wheel .wheel-card:nth-child(n+5){display:none}
-  .image-wheel .wheel-card img{object-fit:contain;object-position:center}
-}
 /* Motion is driven by scroll distance, never by a timer or autoplay loop. */
 .wheel-section{padding:72px 0 24px;background:#eae9e3;margin-top:85px;overflow:hidden}.wheel-heading{text-align:center}.wheel-heading .eyebrow{font-size:clamp(13px,1.05vw,15px)}.wheel-heading h2{font-family:var(--display);font-size:clamp(66px,7.25vw,110px);font-weight:600;letter-spacing:-.025em;line-height:1.1;margin:18px 0}.wheel-heading h2 em{font-family:var(--serif);font-weight:400}.wheel-heading>p{color:var(--muted);font-size:clamp(17px,1.55vw,20px);margin:0}.image-wheel{width:min(1640px,100%);margin:0 auto;touch-action:pan-y;position:relative;isolation:isolate}.wheel-stage{display:flex;gap:20px;padding:45px 30px;overflow:auto}.wheel-card{flex:0 0 290px;padding:0;border:0;border-radius:12px;background:#d5d3cc;box-shadow:0 15px 36px #29261f1c;overflow:hidden;aspect-ratio:3/4;cursor:grab;touch-action:pan-y}.wheel-card img{width:100%;height:100%;object-fit:cover;object-position:center 52%;user-select:none;-webkit-user-select:none;pointer-events:none}.image-wheel.wheel-ready .wheel-stage{height:660px;position:relative;display:block;overflow:visible;padding:0}.wheel-ready .wheel-card{position:absolute;left:50%;top:50%;width:clamp(190px,23.5vw,322px);transform-origin:center;will-change:transform;user-select:none}.wheel-card:focus-visible{outline:4px solid var(--red);outline-offset:6px}.image-wheel.dragging,.image-wheel.dragging .wheel-card{cursor:grabbing}
 @media(min-width:601px){.hero-photo{margin-top:-140px}.hero-intro{bottom:117px}.hero-bold{font-size:clamp(66px,8.1vw,130px)}}
 @media(max-width:1100px){.header{gap:20px}.desktop-nav{gap:19px}.header-cta{font-size:12px}.page-intro-grid{gap:35px;grid-template-columns:1.3fr .7fr}.story{gap:50px;grid-template-columns:.5fr 1.5fr}.page-intro h1{font-size:7.4vw}.hero-photo{margin-top:-110px}.hero-intro{bottom:112px}.image-wheel.wheel-ready .wheel-stage{height:590px}.wheel-ready .wheel-card{width:clamp(180px,25.5vw,280px)}}
 @media(max-width:850px){.page-intro-grid{grid-template-columns:1fr}.page-intro h1{font-size:clamp(58px,9vw,82px)}.page-intro p{max-width:580px}.story{grid-template-columns:1fr;gap:28px}.image-wheel.wheel-ready .wheel-stage{height:500px}.about-page .about-photo img{height:680px}.world-card strong{font-size:42px}}
 @media(max-width:600px){html{scroll-padding-top:95px}.header,.header.scrolled{height:84px;padding-inline:max(20px,env(safe-area-inset-left)) max(20px,env(safe-area-inset-right))}.mobile-nav{max-height:calc(100dvh - 84px)}.mobile-nav a{padding-block:5px}.hero-photo{height:auto;aspect-ratio:1.5;margin-top:28px}.hero-intro{margin-top:18px}.hero-intro p{margin-bottom:18px}.hero-serif{white-space:normal}.hero-bottom{gap:10px}.hero-bottom>a{text-align:right;font-size:9px}.page-intro{padding-block:34px 40px}.page-intro-grid{gap:24px;margin-top:22px}.page-intro h1{font-size:clamp(43px,11.5vw,68px)}.page-intro p{font-size:15px;margin:0}.page-intro+.about{margin-top:35px}.about-page .about-photo img{height:440px}.story{gap:25px}.story h2,.values>h2{font-size:43px}.story p{font-size:15px}.values h3{margin:0 0 10px;font-size:20px}.automobile-note{padding-block:50px}.worlds-grid{gap:25px;grid-template-columns:1fr}.world-card{aspect-ratio:1/1.05}.world-card>span{inset:auto 22px 18px}.world-card strong{font-size:44px}.worlds .section-heading .text-link{margin-top:24px}.wheel-section{margin-top:45px;padding:44px 0 18px}.wheel-heading h2{font-size:clamp(48px,13.75vw,72px);margin:14px 0}.wheel-heading .eyebrow{font-size:12px}.wheel-heading>p{font-size:16px}.image-wheel.wheel-ready .wheel-stage{height:clamp(360px,85vw,460px)}.wheel-ready .wheel-card{width:clamp(140px,42vw,235px);border-radius:8px}.photo-preview button{right:3px;top:3px}.offer-heading{margin-bottom:35px}.form-hint{font-size:13px}.footer-bottom a{padding-block:8px}.gallery-info p{max-width:240px}.gallery-info h2{padding-right:15px}}
+/* Touch carousel: the existing desktop/tablet ring remains unchanged. */
+.wheel-mobile-caption{display:none}
+@media (max-width:600px), (orientation:landscape) and (max-height:600px) and (pointer:coarse){
+  .wheel-section{--mobile-card-width:min(66vw,340px)}
+  .wheel-heading h2,.wheel-heading>p{display:none}
+  .wheel-heading .eyebrow{display:block;max-width:340px;margin-inline:auto;color:var(--ink);font-size:12px;line-height:1.65;letter-spacing:.13em;text-wrap:balance}
+  .image-wheel{margin-top:28px}
+  .image-wheel.wheel-ready .wheel-stage{height:calc(var(--mobile-card-width)*4/3 + 36px);overflow:hidden}
+  .image-wheel .wheel-card{flex-basis:var(--mobile-card-width);width:var(--mobile-card-width);aspect-ratio:3/4;border-radius:clamp(16px,4.8vw,28px);background:var(--line);box-shadow:0 10px 24px #29261f1c}
+  .image-wheel .wheel-card::after{content:'';position:absolute;inset:0;border:1px solid #ffffff80;border-radius:inherit;pointer-events:none}
+  .image-wheel .wheel-card img{object-fit:cover;object-position:50% 52%}
+  .image-wheel .wheel-card:nth-child(5) img{object-position:45% 65%}
+  .image-wheel .wheel-card:nth-child(6) img{object-position:50% 68%}
+  .image-wheel .wheel-card:nth-child(7) img{object-position:50% 58%}
+  .image-wheel .wheel-card:nth-child(8) img{object-position:62% 50%}
+  .wheel-mobile-caption{display:block;margin:24px 20px 34px;text-align:center;font-family:var(--display);font-weight:600;font-size:clamp(22px,6vw,28px);line-height:1.2;letter-spacing:.035em;color:var(--red)}
+  .image-wheel:not(.wheel-ready) .wheel-stage{scroll-snap-type:x mandatory;padding-inline:calc((100% - var(--mobile-card-width))/2)}
+  .image-wheel:not(.wheel-ready) .wheel-card{position:relative;scroll-snap-align:center}
+}
+@media (orientation:landscape) and (max-height:600px) and (pointer:coarse){
+  .wheel-section{--mobile-card-width:min(66vw,52svh,300px)}
+  .image-wheel{margin-top:20px}
+  .wheel-mobile-caption{margin-top:16px;margin-bottom:24px}
+}
+
 @media(prefers-reduced-motion:reduce){.wheel-ready .wheel-card{will-change:auto}.submit-button[aria-busy="true"] .submit-label:before{animation:none}.hero-photo img,.world-card img{transition:none}.motion .reveal{opacity:1;transform:none}}
 
 /* Six navigation links stay on one line; the inquiry link remains in the menu. */
@@ -1011,3 +1032,10 @@ body[data-page="automobile"] .porsche-sale__player video:focus-visible {
   body[data-page="automobile"] .porsche-sale__glass { opacity: 1; transform: none; }
   body[data-page="automobile"] .porsche-sale__cta span { transform: none; }
 }
+
+/* Match the existing dark About section without changing the consultation layout. */
+body[data-page="automobile"] .automobile-note { background: var(--ink); color: var(--paper); }
+body[data-page="automobile"] .automobile-note .story p { color: #cfcdc4; }
+body[data-page="automobile"] .automobile-note .text-link { color: var(--paper); border-color: currentColor; }
+body[data-page="automobile"] .automobile-note .text-link:hover { color: var(--white); }
+body[data-page="automobile"] .automobile-note .text-link:focus-visible { outline-color: var(--paper); }
