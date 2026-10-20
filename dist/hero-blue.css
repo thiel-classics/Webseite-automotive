@@ -1,0 +1,136 @@
+@font-face {
+  font-family: 'Thiel Blue Display';
+  src: url('./assets/hero-blue-anton.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.blue-hero {
+  --hero-blue: #0074ff;
+  position: relative;
+  isolation: isolate;
+  background: #eae9e3;
+}
+
+.blue-hero::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 86px;
+  background: #eae9e3;
+  pointer-events: none;
+}
+
+.blue-hero__scene {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1672 / 941;
+  overflow: hidden;
+}
+
+.blue-hero__room {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.blue-hero__scene::before,
+.blue-hero__scene::after {
+  content: '';
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.blue-hero__scene::before {
+  top: 0;
+  height: 10%;
+  background: linear-gradient(var(--paper), transparent);
+}
+
+.blue-hero__scene::after {
+  bottom: 0;
+  height: 6%;
+  background: linear-gradient(transparent, #eae9e3);
+}
+
+.blue-hero__title,
+.blue-hero__reflection {
+  position: absolute;
+  z-index: 1;
+  left: 4%;
+  width: 92%;
+  margin: 0;
+  color: var(--hero-blue);
+  font-family: 'Thiel Blue Display', Impact, sans-serif;
+  font-size: 16cqw;
+  font-weight: 400;
+  line-height: .84;
+  letter-spacing: -.025em;
+  text-align: center;
+}
+
+.blue-hero__title { top: 19%; }
+
+.blue-hero__line {
+  display: block;
+  white-space: nowrap;
+  transform: scaleX(1.12);
+}
+
+.blue-hero__line + .blue-hero__line {
+  margin-top: .02em;
+  transform: scaleX(1.03);
+}
+
+.blue-hero__reflection {
+  top: 88%;
+  opacity: .13;
+  transform: scaleY(-.5);
+  transform-origin: 50% 50%;
+  filter: blur(4px);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.blue-hero__car {
+  position: absolute;
+  z-index: 2;
+  top: 6.5%;
+  left: 2%;
+  width: 96%;
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+@media (max-width: 600px) {
+  .blue-hero::after { height: 46px; }
+  .blue-hero__scene {
+    aspect-ratio: auto;
+    height: clamp(310px, 86vw, 440px);
+  }
+  .blue-hero__room { object-position: 35% 100%; }
+  .blue-hero__title {
+    top: 25%;
+    font-size: 18cqw;
+    line-height: .87;
+  }
+  .blue-hero__line { transform: scaleX(.99); }
+  .blue-hero__line + .blue-hero__line { transform: scaleX(.91); }
+  .blue-hero__car {
+    width: 110%;
+    left: -5%;
+    top: calc(100% - 65vw);
+  }
+  .blue-hero__reflection { top: 84%; }
+  .blue-hero__scene::after { height: 9%; }
+}

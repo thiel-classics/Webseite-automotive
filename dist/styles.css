@@ -718,7 +718,7 @@ body[data-page="automobile"] .auto-collection__detail .text-link { margin-top: 1
 }
 
 /* Porsche services: fixed words, scroll-linked brand colour and one quiet glass surface. */
-.porsche-services { --services-muted: #dededb; padding-block: clamp(60px, 8vw, 120px); }
+.porsche-services { --services-accent: #0086ff; --services-muted: #dededb; padding-block: clamp(60px, 8vw, 120px); }
 .porsche-services .porsche-services__pin { text-align: left; }
 .porsche-services .porsche-services__title {
   margin: 0 0 clamp(28px, 3.4vw, 48px);
@@ -740,7 +740,7 @@ body[data-page="automobile"] .auto-collection__detail .text-link { margin-top: 1
 .porsche-services .porsche-services__heading { margin: 0; font-weight: 700; }
 .porsche-services .porsche-services__word {
   display: block;
-  color: var(--red);
+  color: var(--services-accent);
   font-family: var(--display);
   font-size: clamp(64px, 13vw, 200px);
   line-height: .95;
@@ -783,7 +783,7 @@ body[data-page="automobile"] .auto-collection__detail .text-link { margin-top: 1
   .porsche-services--motion .porsche-services__words { gap: 8px; min-width: 0; }
   .porsche-services--motion .porsche-services__panel { display: block; }
   .porsche-services--motion .porsche-services__word {
-    color: color-mix(in srgb, var(--red) var(--services-active, 0%), var(--services-muted));
+    color: color-mix(in srgb, var(--services-accent) var(--services-active, 0%), var(--services-muted));
   }
   /* The original descriptions stay together with their headings for assistive reading. */
   .porsche-services--motion .porsche-services__copy {

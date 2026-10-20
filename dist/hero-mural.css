@@ -1,0 +1,51 @@
+.mural-hero {
+  --mural-transition-color: #eae9e3;
+  position: relative;
+  background: var(--mural-transition-color);
+}
+
+.mural-hero__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Fade only the foreground floor into the adjoining carousel surface. */
+.mural-hero::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: calc(12% + 6% * var(--mural-fade, .5));
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    rgb(234 233 227 / 0),
+    rgb(234 233 227 / .08) 25%,
+    rgb(234 233 227 / .4) 55%,
+    rgb(234 233 227 / .8) 78%,
+    var(--mural-transition-color) 98%
+  );
+}
+
+/* Remove only the gap immediately after this homepage Hero. */
+.mural-hero + .wheel-section {
+  margin-top: 0;
+}
+
+/* Retain the page heading for assistive technology without adding text over the photograph. */
+.mural-hero__title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mural-hero::after {
+    height: 15%;
+  }
+}

@@ -1,0 +1,122 @@
+@font-face {
+  font-family: 'Thiel Hero Serif';
+  src: url('./assets/hero-fraunces-black.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Thiel Hero Marker';
+  src: url('./assets/hero-permanent-marker.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.poster-hero {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(48px, 5.5vw, 88px) 24px clamp(48px, 5vw, 80px);
+  background: linear-gradient(var(--paper) 65%, #eae9e3);
+  color: var(--ink);
+}
+
+/* Continue the paper tone through the carousel's existing top margin. */
+.poster-hero::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 86px;
+  background: #eae9e3;
+  pointer-events: none;
+}
+
+.poster-hero__title {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1480px);
+  margin: 0 auto;
+  text-align: center;
+  font-weight: 400;
+}
+
+.poster-hero__main {
+  display: block;
+  font-family: 'Thiel Hero Serif', Georgia, serif;
+  font-size: clamp(60px, 10.6vw, 174px);
+  font-weight: 900;
+  line-height: .95;
+  letter-spacing: -.065em;
+}
+
+.poster-hero__marker {
+  position: relative;
+  display: table;
+  margin: -.03em auto 0;
+  padding: 0 .08em .24em;
+  transform: translateX(12%) rotate(-5deg);
+  font-family: 'Thiel Hero Marker', cursive;
+  font-size: clamp(36px, 5.7vw, 94px);
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -.045em;
+  color: var(--red);
+  white-space: nowrap;
+}
+
+.poster-hero__underline {
+  position: absolute;
+  inset: auto 4% 0;
+  width: 92%;
+  height: .23em;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.poster-hero__car {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: min(100%, 1290px);
+  height: auto;
+  margin: clamp(24px, 3.8vw, 60px) auto 0;
+  overflow: visible;
+}
+
+@media (max-width: 700px) {
+  .poster-hero {
+    padding: 40px 18px 38px;
+  }
+
+  .poster-hero__main {
+    font-size: clamp(76px, 19.6vw, 137px);
+    line-height: .8;
+    letter-spacing: -.06em;
+  }
+
+  .poster-hero__main span {
+    display: block;
+  }
+
+  .poster-hero__main span + span {
+    margin-top: .06em;
+  }
+
+  .poster-hero__marker {
+    margin-top: .35em;
+    font-size: clamp(30px, 7.8vw, 54px);
+    transform: rotate(-5deg);
+  }
+
+  .poster-hero__car {
+    margin-top: 34px;
+  }
+}
+
+@media (max-width: 600px) {
+  .poster-hero::after { height: 46px; }
+}
