@@ -1039,3 +1039,11 @@ body[data-page="automobile"] .automobile-note .story p { color: #cfcdc4; }
 body[data-page="automobile"] .automobile-note .text-link { color: var(--paper); border-color: currentColor; }
 body[data-page="automobile"] .automobile-note .text-link:hover { color: var(--white); }
 body[data-page="automobile"] .automobile-note .text-link:focus-visible { outline-color: var(--paper); }
+
+
+/* Full-width image replacing the Automobile references section. */
+body[data-page="automobile"] .villa-image { width: 100%; margin: 0; padding: 0; }
+body[data-page="automobile"] .villa-image > img { display: block; width: 100%; height: auto; }
+
+/* Keep the purchase sidebar photo complete at its original proportions. */
+body[data-page="ankauf"] .offer-aside > .offer-aside__photo { aspect-ratio: auto; height: auto; object-fit: contain; }
