@@ -1,11 +1,8 @@
-.sites-runtime/
-artifacts/
-*.tar.gz
-*.tar
 node_modules/
 .env
 .env.*
 !.env.example
 *.log
 .DS_Store
-Thumbs.db
+qa/
+references/

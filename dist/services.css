@@ -1,0 +1,87 @@
+.services {
+  --service-font-size: 120px;
+  --service-letter-spacing: -2px;
+  --service-image-gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding: 160px 40px;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+}
+
+.services-label {
+  margin: 0;
+  color: #999;
+  font: 400 20px/24px var(--mono);
+}
+
+.services-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px;
+  overflow: hidden;
+}
+
+.service-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  gap: var(--service-image-gap);
+  width: max-content;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.service-word {
+  flex: none;
+  margin: 0;
+  color: inherit;
+  font: 800 var(--service-font-size)/.866666667 var(--sans);
+  letter-spacing: var(--service-letter-spacing);
+  text-align: center;
+  white-space: nowrap;
+  transform-origin: center;
+}
+
+.service-bubble {
+  position: relative;
+  display: block;
+  flex: none;
+  width: calc(var(--service-font-size) * 1.4);
+  aspect-ratio: 21 / 13;
+  border-radius: 100px;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.service-bubble img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;
+}
+
+.service-row:nth-child(3) img { object-position: 55% 60%; }
+.service-row:nth-child(4) img { object-position: 50% 12%; }
+
+@media (min-width: 810px) and (max-width: 1199px) {
+  .services { --service-font-size: clamp(64px, 8.2vw, 96px); }
+}
+
+@media (max-width: 809px) {
+  .services {
+    --service-font-size: clamp(24px, calc(11vw - 8.8px), 48px);
+    --service-letter-spacing: -1px;
+    --service-image-gap: 8px;
+    gap: 24px;
+    padding: 96px 32px;
+  }
+}

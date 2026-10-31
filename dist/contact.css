@@ -1,0 +1,71 @@
+/* The existing services padding and its 8px inner padding leave 168px
+   (104px on mobile). Adding 4px matches the cards-to-label gap of 172px
+   (108px on mobile), including the projects section's 12px bottom padding. */
+.contact-section {
+  margin-top: 4px;
+  padding: clamp(96px, 8.8888889vw, 160px) 40px clamp(96px, 7.7777778vw, 160px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  background: #fff;
+  color: #000;
+  color-scheme: light;
+  text-align: center;
+  scroll-margin-top: 120px;
+}
+
+.contact-label {
+  margin: 0;
+  font: 400 20px/24px var(--mono);
+}
+
+.contact-heading {
+  width: 100%;
+  margin: 0;
+  font: 800 clamp(64px, 8.3333333vw, 160px)/1 var(--sans);
+  letter-spacing: -.035em;
+}
+
+.contact-heading span { white-space: nowrap; }
+
+.contact-button {
+  flex: none;
+  max-width: 100%;
+  min-height: 64px;
+  padding: 16px 28px;
+  border-radius: 100px;
+  background: #000;
+  color: #fff;
+  font: 400 24px/32px var(--sans);
+  transition: background-color .3s var(--ease), transform .3s var(--ease);
+}
+
+.contact-button:active { transform: scale(.98); }
+.contact-button:focus-visible,
+.contact-footer a:focus-visible { outline: 2px solid #000; outline-offset: 6px; }
+
+.contact-footer { margin-top: 0; background: #fff; color: #000; color-scheme: light; }
+.contact-footer a { color: #000; }
+.contact-section ::selection,
+.contact-footer ::selection { background: #000; color: #fff; }
+
+@media (hover: hover) {
+  .contact-button:hover { background: #252525; transform: translateY(-2px); }
+  .contact-button:active { transform: scale(.98); }
+}
+
+@media (max-width: 809px) {
+  .contact-section { padding: 96px 32px; gap: 32px; }
+  .contact-label { font-size: 16px; }
+  .contact-heading { font-size: clamp(36px, 12vw, 80px); line-height: .98; }
+  .contact-heading span { display: block; }
+  .contact-button { min-height: 56px; padding: 12px 24px; font-size: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-button { transition: none; }
+  .contact-button,
+  .contact-button:hover,
+  .contact-button:active { transform: none; }
+}

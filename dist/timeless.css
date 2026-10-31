@@ -1,0 +1,44 @@
+@font-face{font-family:Personal Spezia;src:url('/assets/personal-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Personal Spezia;src:url('/assets/personal-bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+.timeless-personal{--personal-gutter:1.0416667vw;--personal-gap:1.0416667vw;position:relative;scroll-margin-top:120px;margin-top:160px;padding:1.5104167vw var(--personal-gutter) 0;background:#000;color:#fff;font-family:Personal Spezia,Arial,sans-serif}
+.timeless-title{display:flex;align-items:start;width:100%;margin:0 0 1.0416667vw;overflow:hidden;font-size:var(--timeless-size,21vw);line-height:.94;font-weight:700;letter-spacing:-.045em;white-space:nowrap}
+.timeless-word{display:block;flex:none;height:.94em;overflow:hidden}
+.timeless-roll{display:block;height:100%;will-change:transform}
+.timeless-roll>span{display:block;height:100%}
+.timeless-first .timeless-roll{transform:translateY(-200%);animation:timeless-roll-up 1.5s cubic-bezier(.5,.5,0,1) both;animation-play-state:paused}
+.timeless-second .timeless-roll{animation:timeless-roll-down 1.5s cubic-bezier(.5,.5,0,1) both;animation-play-state:paused}
+.timeless-meta{position:relative;z-index:3;display:grid;grid-template-columns:repeat(24,minmax(0,1fr));column-gap:var(--personal-gap);background:#000;font-size:1.6666667vw;line-height:1.3125}
+.timeless-meta-left{grid-column:1/span 10}.timeless-meta-middle{grid-column:11/span 7}.timeless-meta-right{grid-column:18/span 7;text-align:right}
+.timeless-label{display:block;white-space:nowrap}
+.timeless-reveal-mask{overflow:hidden;transform:scaleY(1.5)}
+.timeless-reveal{display:block;transform:scaleY(.666666667);animation:timeless-skew-in 1.5s cubic-bezier(0,1,.2,1) both;animation-play-state:paused}
+.timeless-meta-left .timeless-reveal{animation-delay:2s}.timeless-meta-middle .timeless-reveal{animation-delay:2.1s}.timeless-meta-right .timeless-reveal{animation-delay:2.2s}
+.timeless-content{display:grid;grid-template-columns:repeat(24,minmax(0,1fr));column-gap:var(--personal-gap)}
+.timeless-portrait{grid-column:1/span 10;align-self:end;width:78%;margin:3.333333vw 0 0;aspect-ratio:1055/1491}
+.timeless-portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.timeless-copy{grid-column:11/span 14;position:relative;padding:13.0208333vw 0 .6770833vw}
+.timeless-copy:before{content:'';position:absolute;left:calc(-1 * var(--personal-gap));top:-2.1875vw;bottom:0;border-left:1px solid #2d2d2d;animation:timeless-rule-in 1s 2.2s both;animation-play-state:paused}
+.timeless-copy p{margin:0 1.5104167vw 0 0;font-size:3.3333333vw;line-height:1.125;font-weight:400}
+.timeless-copy .timeless-reveal{animation-delay:2.3s}
+.timeless-personal.is-revealed .timeless-roll,.timeless-personal.is-revealed .timeless-reveal,.timeless-personal.is-revealed .timeless-copy:before{animation-play-state:running}
+@keyframes timeless-roll-up{from{transform:translateY(100%)}to{transform:translateY(-200%)}}
+@keyframes timeless-roll-down{from{transform:translateY(-300%)}to{transform:translateY(0)}}
+@keyframes timeless-skew-in{from{transform:translateY(200%) skew(-20deg,0deg) scale(1,1.5)}to{transform:scaleY(.666666667)}}
+@keyframes timeless-rule-in{from{opacity:0}to{opacity:1}}
+@media(max-width:809px){
+  .timeless-personal{--personal-gutter:4.3478261vw;--personal-gap:3vw;margin-top:96px;padding-top:8.4541063vw}
+  .timeless-title{margin-bottom:4.3478261vw}
+  .timeless-meta{grid-template-columns:repeat(3,minmax(0,1fr));font-size:clamp(11px,3.38vw,18px);line-height:1.3333333;padding:4px 0}
+  .timeless-meta-left,.timeless-meta-middle,.timeless-meta-right{grid-column:auto}
+  .timeless-meta-middle{text-align:center}.timeless-meta-right{text-align:right}.timeless-label{white-space:normal}
+  .timeless-content{display:flex;flex-direction:column;gap:0}
+  .timeless-portrait{align-self:stretch;width:100%;margin:48px 0 0}
+  .timeless-copy{padding:32px 0 0;margin-top:48px}
+  .timeless-copy:before{left:0;right:0;top:0;bottom:auto;border-left:0;border-top:1px solid #2d2d2d}
+  .timeless-copy p{margin:0 2.4154589vw 0 0;font-size:7.7294686vw;line-height:1.125}
+}
+@media(prefers-reduced-motion:reduce){
+  .timeless-roll,.timeless-reveal,.timeless-copy:before{animation:none!important;will-change:auto}
+  .timeless-first .timeless-roll{transform:translateY(-200%)}.timeless-second .timeless-roll{transform:none}
+  .timeless-reveal-mask,.timeless-reveal{transform:none}
+}

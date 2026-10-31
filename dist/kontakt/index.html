@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://thiel-classics.de/kontakt">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Kontakt zu THIEL CLASSIC’N SPORTCARS. Erzähl uns von deinem Klassiker oder Sportwagen.">
+  <title>THIEL — Kontakt</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/roboto-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/kontakt.css">
+  <script src="/app.js" defer></script>
+  <script src="/kontakt.js" defer></script>
+</head>
+<body id="top" class="kontakt-page">
+  <a class="skip-link" href="#main-content">Zum Inhalt</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="THIEL — Home"><span class="brand-crop"><img src="/assets/thiel-logo.png" alt="THIEL" width="2023" height="777"></span></a>
+    <div class="header-actions">
+      <button class="text-link menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span data-scramble>MENU</span></button>
+      <button class="search-toggle" type="button" aria-label="Search" aria-haspopup="dialog"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></button>
+    </div>
+  </header>
+
+  <main id="main-content" class="kontakt-main">
+    <h1 class="kontakt-title"><span>KONTAKT</span></h1>
+    <div class="kontakt-grid">
+      <aside class="kontakt-details" aria-label="Kontaktdaten">
+        <a href="mailto:thieltrading@web.de">thieltrading@web.de</a>
+        <a href="tel:+491734209980">+49 173 4209980</a>
+      </aside>
+      <div class="kontakt-content">
+        <p class="kontakt-intro">Du hast einen besonderen Klassiker oder Sportwagen in der Garage und spielst mit dem Gedanken, ihn zu verkaufen? Dann lass uns darüber sprechen! Wir sind immer neugierig auf spannende Automobile und die Geschichten dahinter. Erzähl uns von deinem Fahrzeug.</p>
+        <form class="kontakt-form" data-contact-mode="direct" aria-label="Kontaktformular – derzeit deaktiviert" aria-describedby="contact-availability" novalidate>
+          <p class="kontakt-availability" id="contact-availability">Das Kontaktformular ist derzeit noch nicht freigeschaltet. Schreib uns bitte direkt per <a href="mailto:thieltrading@web.de">E-Mail</a> oder ruf uns unter <a href="tel:+491734209980">+49 173 4209980</a> an.</p>
+          <div class="kontakt-field">
+            <label for="contact-name">Name <span aria-hidden="true">*</span></label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="name-error" disabled>
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="kontakt-field">
+            <label for="contact-email">E-Mail <span aria-hidden="true">*</span></label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" required maxlength="254" spellcheck="false" autocapitalize="none" aria-describedby="email-error" disabled>
+            <p class="field-error" id="email-error" hidden></p>
+          </div>
+          <div class="kontakt-field">
+            <label for="contact-message">Nachricht <span aria-hidden="true">*</span></label>
+            <textarea id="contact-message" name="message" rows="3" required maxlength="5000" aria-describedby="message-error" disabled></textarea>
+            <p class="field-error" id="message-error" hidden></p>
+          </div>
+          <div class="kontakt-honeypot" aria-hidden="true" inert>
+            <label for="contact-website">Website</label>
+            <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" disabled>
+          </div>
+          <div class="kontakt-privacy">
+            <label class="privacy-acknowledgement"><input type="checkbox" id="privacy-acknowledgement" disabled><span>Ich habe die <a href="/datenschutz">Datenschutzerklärung</a> zur Kenntnis genommen.</span></label>
+            <p>Deine Angaben werden ausschließlich zur Bearbeitung deiner Anfrage verwendet. Weitere Informationen findest du in der <a href="/datenschutz">Datenschutzerklärung</a>.</p>
+          </div>
+          <button class="kontakt-send" type="submit" disabled>SENDEN</button>
+          <p class="kontakt-status" role="status" aria-live="polite" aria-atomic="true"></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="socials"><a class="text-link" href="https://www.instagram.com/thiel_classics/" target="_blank" rel="noopener"><span data-scramble>INSTAGRAM</span> <span class="external-arrow">↗</span></a></div>
+    <nav class="footer-legal" aria-label="Rechtliche Informationen">
+      <a class="text-link" href="/impressum"><span data-scramble>IMPRESSUM</span></a>
+      <a class="text-link" href="/datenschutz"><span data-scramble>DATENSCHUTZ</span></a>
+    </nav>
+    <a class="text-link back-top" href="#top"><span data-scramble>BACK TO TOP</span></a>
+  </footer>
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Navigation" hidden>
+    <div class="grain" aria-hidden="true"></div>
+    <nav class="menu-nav" aria-label="Main navigation">
+      <a class="menu-item" href="/" data-home-link><span class="menu-word">HOME</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/about"><span class="menu-word">ÜBER UNS</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/" data-home-link><span class="menu-word">ANKAUF</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/" data-home-link><span class="menu-word">BESTAND</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/kontakt" aria-current="page"><span class="menu-word">KONTAKT</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+    </nav>
+    <div class="menu-socials socials"><a class="text-link" href="https://www.instagram.com/thiel_classics/" target="_blank" rel="noopener"><span data-scramble>INSTAGRAM</span> ↗</a></div>
+  </div>
+  <dialog class="search-dialog" aria-label="Search the homepage">
+    <div class="search-box"><div class="search-input-row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" placeholder="Search…" aria-label="Search" autocomplete="off" spellcheck="false" aria-controls="search-results"><button class="search-close" aria-label="Close search" type="button">×</button></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
+  </dialog>
+</body>
+</html>
