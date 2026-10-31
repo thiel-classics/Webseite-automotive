@@ -3,10 +3,10 @@ DirectoryIndex index.html
 RewriteEngine On
 
 # Preserve addresses used by the previous THIEL website.
-RewriteRule ^ueber-uns\.html$ /about [R=301,L]
-RewriteRule ^impressum\.html$ /impressum [R=301,L]
-RewriteRule ^datenschutz\.html$ /datenschutz [R=301,L]
-RewriteRule ^ankauf\.html$ /kontakt [R=301,L]
+RewriteRule ^ueber-uns\.html$ /about/ [R=301,L]
+RewriteRule ^impressum\.html$ /impressum/ [R=301,L]
+RewriteRule ^datenschutz\.html$ /datenschutz/ [R=301,L]
+RewriteRule ^ankauf\.html$ /kontakt/ [R=301,L]
 RewriteRule ^(?:automobile|bestand)\.html$ / [R=301,L]
 
 # Keep the existing extensionless local routes on IONOS/Apache.

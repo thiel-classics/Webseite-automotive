@@ -13,7 +13,8 @@ for(const page of pages){
   const footer=html.match(/<footer[\s\S]*?<\/footer>/)?.[0]||'';
   for(const target of ['/impressum','/datenschutz','#top','https://www.instagram.com/thiel_classics/'])assert.ok(footer.includes('href="'+target+'"'),page+': footer '+target);
   for(const match of html.matchAll(/(?:href|src)="([^"]+)"/g)){
-    const url=match[1];if(/^(?:https?:|mailto:|tel:|#)/.test(url))continue;
+    const link=match[1];if(/^(?:https?:|mailto:|tel:|#)/.test(link))continue;
+    const url=link.split(/[?#]/)[0];
     const resource=path.resolve(url.startsWith('/')?root:path.dirname(path.join(root,page)),'.'+(url.startsWith('/')?url:'/'+url));
     assert.ok(resource.startsWith(root+path.sep)||resource===root,page+': path scope');
     assert.ok(fs.existsSync(resource),page+': missing '+url);
