@@ -1,6 +1,7 @@
 Options -Indexes
 DirectoryIndex index.html
 RewriteEngine On
+RewriteBase /
 
 # Preserve addresses used by the previous THIEL website.
 RewriteRule ^ueber-uns\.html$ /about/ [R=301,L]
@@ -10,7 +11,7 @@ RewriteRule ^ankauf\.html$ /kontakt/ [R=301,L]
 RewriteRule ^(?:automobile|bestand)\.html$ / [R=301,L]
 
 # Keep the existing extensionless local routes on IONOS/Apache.
-RewriteRule ^(about|kontakt|impressum|datenschutz)/?$ $1/index.html [L]
+RewriteRule ^(about|kontakt|impressum|datenschutz)/?$ /$1/index.html [L]
 
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
