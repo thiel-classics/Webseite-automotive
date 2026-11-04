@@ -1,0 +1,15 @@
+[
+  {
+    "id": "porsche-911-f-1966",
+    "title": "Porsche 911 F-Modell",
+    "year": 1966,
+    "status": "sold",
+    "price": "",
+    "location": "Las Vegas, Nevada",
+    "image": "/assets/vehicles/porsche-911-f-1966.jpg",
+    "imageAlt": "Weißer klassischer Porsche 911 F-Modell vor einem historischen Gebäude",
+    "imagePosition": "50% 58%",
+    "description": "Dieser Porsche 911 F aus dem Jahr 1966 stammt ursprünglich aus Las Vegas, Nevada. Ein charakterstarker Klassiker mit authentischer Ausstrahlung, wunderschönem Erhaltungszustand und der zeitlosen Formensprache der frühen 911er-Generation.",
+    "details": []
+  }
+]

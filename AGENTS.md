@@ -14,7 +14,7 @@ erhalten. Alte Gestaltungsanweisungen nicht aus der Vorgängerversion übernehme
 - Der vorbereitete Node-Mailserver läuft nicht bei IONOS Deploy Now. Vor einer
   Freischaltung eine unterstützte Backend-Laufzeit, SMTP und Rechtstexte prüfen.
 - Keine Geheimnisse in dist, Git oder Browsercode; .env bleibt lokal/ignoriert.
-- Änderungen an Navigation/Footer in allen fünf Seiten konsistent ausführen.
+- Änderungen an Navigation/Footer in allen sieben Seiten konsistent ausführen.
 - Bestehende Animationen, reduzierte Bewegung und mobile Darstellung erhalten.
 - Weitere Pushes/Deployments nur bei entsprechendem Nutzerauftrag.
 

@@ -36,3 +36,15 @@ bleiben unkonfiguriert. Keine Zugangsdaten sind im Auslieferungsordner enthalten
 Die Datenschutzerklärung beschreibt den öffentlichen IONOS-Betrieb und das
 deaktivierte Formular. Vor dessen späterer Freischaltung sind Laufzeit,
 SMTP-Konfiguration, Rechtstexte und Zustellung gesondert zu prüfen.
+
+## Aktualisierung · 4. November 2026
+
+Auf Betreiberauftrag werden die lokale Ankaufsseite und die Bestandsverwaltung
+auf main übernommen. Die Ankaufsüberschrift entspricht in Größe und Ausrichtung
+der Kontaktseite, die erste Karte steht gerade und die zweite bleibt animiert.
+Der Bestand verwendet kompakte Karten ohne zusätzliches Bildrauschen sowie
+ein weißes Detailfenster. Datenpflege: `bestand/README.md`.
+
+Stand vor dieser Aktualisierung: 5185398ecba617d0f449c2b1cb1dde42e6d3444e.
+Die drei IONOS-Workflows, Domain-Verbindung und der direkte Kontaktmodus bleiben
+unverändert. Ein Rückfall erfolgt bei Bedarf als neuer Commit, ohne Force-Push.

@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 
 const root=path.resolve('dist');
-const pages=['index.html','about/index.html','kontakt/index.html','impressum/index.html','datenschutz/index.html'];
+const pages=['index.html','about/index.html','ankauf/index.html','bestand/index.html','kontakt/index.html','impressum/index.html','datenschutz/index.html'];
 for(const page of pages){
   const html=fs.readFileSync(path.join(root,page),'utf8');
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page+': heading');
@@ -31,5 +31,5 @@ assert.ok(!contact.includes('action="/api/contact"'),'static form must not submi
 assert.ok(!fs.existsSync(path.join(root,'.env')),'secret file in public folder');
 const apache=fs.readFileSync(path.join(root,'.htaccess'),'utf8');
 for(const old of ['ueber-uns','impressum','datenschutz','ankauf','automobile','bestand'])assert.ok(apache.includes(old),'missing old route '+old);
-for(const js of ['app.js','about.js','services.js','timeless.js','kontakt.js'])execFileSync(process.execPath,['--check',path.join(root,js)]);
-console.log('Launch geprüft: 5 Seiten, lokale Links, Metadaten, Footer, deaktiviertes Formular, Weiterleitungen und JavaScript.');
+for(const js of ['app.js','about.js','services.js','timeless.js','kontakt.js','bestand-data.js','bestand.js','ankauf.js'])execFileSync(process.execPath,['--check',path.join(root,js)]);
+console.log('Launch geprüft: 7 Seiten, lokale Links, Metadaten, Footer, deaktiviertes Formular, Weiterleitungen und JavaScript.');

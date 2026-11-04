@@ -1,8 +1,14 @@
 # THIEL CLASSIC’N SPORTCARS
 
 Website für https://thiel-classics.de/ mit lokal gespeicherten Bildern und Schriften.
-Die fünf Seiten liegen in dist: Startseite, /about, /kontakt, /impressum,
-/datenschutz. .htaccess erhält die früheren .html-Adressen als Weiterleitungen.
+Die sieben Seiten liegen in dist: Startseite, /about, /ankauf, /bestand,
+/kontakt, /impressum und /datenschutz. .htaccess erhält die früheren
+.html-Adressen als Weiterleitungen.
+
+Fahrzeuge manuell über GitHub pflegen: [Anleitung](bestand/README.md).
+Die Fahrzeugliste liegt in `dist/data/vehicles.json`, die Bilder in
+`dist/assets/vehicles/`. Verfügbare Fahrzeuge stehen vor verkauften; ein
+verkauftes Fahrzeug zeigt keinen Preis.
 
 ## Entwicklung
 

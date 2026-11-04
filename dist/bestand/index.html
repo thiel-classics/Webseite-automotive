@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="canonical" href="https://thiel-classics.de/bestand/">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Ausgewählte Oldtimer, Youngtimer und Sportwagen bei THIEL CLASSIC’N SPORTCARS. Entdecke unseren Fahrzeugbestand und verkaufte Klassiker.">
+  <title>THIEL — Bestand</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/roboto-mono.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/styles.css?v=20261031-2">
+  <link rel="stylesheet" href="/bestand.css?v=20261104-2">
+  <script src="/app.js?v=20261031-2" defer></script>
+  <script type="module" src="/bestand.js?v=20261104-2"></script>
+</head>
+<body id="top" class="bestand-page">
+  <a class="skip-link" href="#main-content">Zum Inhalt</a>
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="THIEL — Home"><span class="brand-crop"><img src="/assets/thiel-logo.png" alt="THIEL" width="2023" height="777"></span></a>
+    <div class="header-actions">
+      <button class="text-link menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span data-scramble>MENU</span></button>
+      <button class="search-toggle" type="button" aria-label="Search" aria-haspopup="dialog"><svg viewBox="0 0 256 256" aria-hidden="true"><path d="M232.49,215.51,185,168a92.12,92.12,0,1,0-17,17l47.53,47.54a12,12,0,0,0,17-17ZM44,112a68,68,0,1,1,68,68A68.07,68.07,0,0,1,44,112Z"/></svg></button>
+    </div>
+  </header>
+
+  <main id="main-content" class="bestand-main">
+    <h1 class="bestand-heading"><span>BESTAND</span></h1>
+    <div class="bestand-caption"><p>AUSGEWÄHLTE AUTOMOBILE</p><p id="inventory-count" aria-live="polite">BESTAND</p></div>
+    <section class="vehicle-grid" id="vehicle-grid" aria-label="Fahrzeugbestand" aria-busy="true"></section>
+    <p class="inventory-message" id="inventory-message" role="status">Fahrzeuge werden geladen …</p>
+    <button class="inventory-retry" id="inventory-retry" type="button" hidden>Erneut laden</button>
+    <noscript><p class="inventory-noscript">Aktiviere JavaScript, um Fahrzeuge und Details zu sehen. Du erreichst uns unter <a href="mailto:thieltrading@web.de">thieltrading@web.de</a> oder <a href="tel:+491734209980">+49 173 4209980</a>.</p></noscript>
+  </main>
+
+  <dialog class="vehicle-dialog" id="vehicle-dialog" aria-labelledby="vehicle-detail-title">
+    <div class="vehicle-dialog-bar"><button class="vehicle-close" type="button" aria-label="Fahrzeugdetails schließen" autofocus>SCHLIESSEN <span aria-hidden="true">×</span></button></div>
+    <div class="vehicle-detail" id="vehicle-detail"></div>
+  </dialog>
+
+  <footer class="footer">
+    <div class="socials"><a class="text-link" href="https://www.instagram.com/thiel_classics/" target="_blank" rel="noopener"><span data-scramble>INSTAGRAM</span> <span class="external-arrow">↗</span></a></div>
+    <nav class="footer-legal" aria-label="Rechtliche Informationen">
+      <a class="text-link" href="/impressum"><span data-scramble>IMPRESSUM</span></a>
+      <a class="text-link" href="/datenschutz"><span data-scramble>DATENSCHUTZ</span></a>
+    </nav>
+    <a class="text-link back-top" href="#top"><span data-scramble>BACK TO TOP</span></a>
+  </footer>
+  <div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Navigation" hidden>
+    <div class="grain" aria-hidden="true"></div>
+    <nav class="menu-nav" aria-label="Main navigation">
+      <a class="menu-item" href="/" data-home-link><span class="menu-word">HOME</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/about"><span class="menu-word">ÜBER UNS</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/ankauf"><span class="menu-word">ANKAUF</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/bestand" aria-current="page"><span class="menu-word">BESTAND</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+      <a class="menu-item" href="/kontakt"><span class="menu-word">KONTAKT</span><span class="marquee" aria-hidden="true"><span></span><span></span></span></a>
+    </nav>
+    <div class="menu-socials socials"><a class="text-link" href="https://www.instagram.com/thiel_classics/" target="_blank" rel="noopener"><span data-scramble>INSTAGRAM</span> ↗</a></div>
+  </div>
+  <dialog class="search-dialog" aria-label="Search the homepage">
+    <div class="search-box"><div class="search-input-row"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" placeholder="Search…" aria-label="Search" autocomplete="off" spellcheck="false" aria-controls="search-results"><button class="search-close" aria-label="Close search" type="button">×</button></div><div id="search-results" class="search-results" aria-live="polite"></div></div>
+  </dialog>
+</body>
+</html>
