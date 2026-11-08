@@ -54,8 +54,8 @@ function openVehicle(vehicle, trigger) {
   if (vehicle.description) info.append(element('p', 'vehicle-description', vehicle.description));
   const contact = element('div', 'vehicle-contact');
   contact.append(element('p', 'vehicle-contact-label', 'IM GESPRÄCH BLEIBEN'));
-  const mail = element('a', 'text-link', 'thieltrading@web.de');
-  mail.href = 'mailto:thieltrading@web.de';
+  const mail = element('a', 'text-link', 'info@thiel-classics.de');
+  mail.href = 'mailto:info@thiel-classics.de';
   const phone = element('a', 'text-link', '+49 173 4209980');
   phone.href = 'tel:+491734209980';
   contact.append(mail, phone);

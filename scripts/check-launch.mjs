@@ -10,6 +10,7 @@ for(const page of pages){
   assert.equal((html.match(/<h1\b/g)||[]).length,1,page+': heading');
   assert.ok(html.includes('rel="canonical"'),page+': canonical');
   assert.ok(!/FormSubmit|reCAPTCHA|Made in Framer|FREE REMIX|BUILT AND DESIGNED|ALISON/i.test(html),page+': outdated content');
+  assert.ok(!html.includes('thieltrading@web.de'),page+': outdated contact address');
   const footer=html.match(/<footer[\s\S]*?<\/footer>/)?.[0]||'';
   for(const target of ['/impressum','/datenschutz','#top','https://www.instagram.com/thiel_classics/'])assert.ok(footer.includes('href="'+target+'"'),page+': footer '+target);
   for(const match of html.matchAll(/(?:href|src)="([^"]+)"/g)){
@@ -26,10 +27,12 @@ assert.ok(contact.includes('data-contact-mode="direct"'));
 for(const tag of contact.matchAll(/<(?:input|textarea|button)\b[^>]*>/g)){
   if(/contact-(name|email|message|website)|privacy-acknowledgement|kontakt-send/.test(tag[0]))assert.ok(/\bdisabled\b/.test(tag[0]),'contact enabled: '+tag[0]);
 }
-assert.ok(contact.includes('mailto:thieltrading@web.de')&&contact.includes('tel:+491734209980'));
-assert.ok(!contact.includes('action="/api/contact"'),'static form must not submit');
+assert.ok(contact.includes('mailto:info@thiel-classics.de')&&contact.includes('tel:+491734209980'));
+assert.match(contact,/<form\b[^>]*action="\/api\/contact"[^>]*method="post"/);
+assert.ok(fs.readFileSync(path.join(root,'bestand.js'),'utf8').includes('mailto:info@thiel-classics.de'));
+assert.ok(fs.readFileSync(path.join(root,'index.html'),'utf8').includes('aria-label="CLASSIC´N SPORTSCARS"'));
 assert.ok(!fs.existsSync(path.join(root,'.env')),'secret file in public folder');
 const apache=fs.readFileSync(path.join(root,'.htaccess'),'utf8');
 for(const old of ['ueber-uns','impressum','datenschutz','ankauf','automobile','bestand'])assert.ok(apache.includes(old),'missing old route '+old);
 for(const js of ['app.js','about.js','services.js','timeless.js','kontakt.js','bestand-data.js','bestand.js','ankauf.js'])execFileSync(process.execPath,['--check',path.join(root,js)]);
-console.log('Launch geprüft: 7 Seiten, lokale Links, Metadaten, Footer, deaktiviertes Formular, Weiterleitungen und JavaScript.');
+console.log('Launch geprüft: 7 Seiten, lokale Links, Metadaten, Footer, Formular-Fallback, Weiterleitungen und JavaScript.');

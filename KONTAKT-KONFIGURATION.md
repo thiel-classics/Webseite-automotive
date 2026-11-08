@@ -1,9 +1,18 @@
-# Kontaktformular: lokale Einrichtung und spätere Freischaltung
+# Kontaktformular: lokale Vorschau und Produktivbetrieb
 
 Die Seite liegt unter `/kontakt`, der eigene Versand-Endpunkt unter `POST /api/contact`.
 Es wird kein Formulardienst verwendet. Der Versand erfolgt mit Nodemailer per SMTP
-vom eigenen Node-Server an ausschließlich **thieltrading@web.de**. Hosting- und
+vom eigenen Node-Server an ausschließlich **info@thiel-classics.de** (IONOS
+Hosted Microsoft Exchange, bearbeitet in Outlook). Hosting- und
 E-Mail-Anbieter bleiben an der technischen Verarbeitung beteiligt.
+
+## Lokale Vorschau ohne E-Mail-Versand
+
+Mit `node server.mjs --preview-contact` starten und `http://127.0.0.1:4173/kontakt`
+öffnen. Die Vorschau ignoriert die lokale `.env` und benutzt einen Test-Transport
+ohne Netzwerkzugriff. Die Erfolgsanzeige kennzeichnet die Simulation. Die
+öffentliche Kontaktseite aktiviert das Formular erst, wenn ihr eigener Endpunkt
+die Versandbereitschaft meldet.
 
 ## Lokale Einrichtung
 
@@ -72,6 +81,15 @@ Diese kurzlebigen pseudonymen Merkmale sind in der Datenschutzerklärung zu nenn
 Der Server liest bewusst keine frei mitgeschickten X-Forwarded-For-Adressen.
 
 ## Späterer Produktivbetrieb
+
+Das derzeitige Deploy-Now-Projekt liefert `dist/` statisch aus und startet
+den Node-Server nicht. Ein Push der statischen Dateien allein schaltet das
+Formular daher nicht frei. Für einen Betrieb innerhalb von Deploy Now wäre
+ein PHP-Projekt mit serverseitigem Endpunkt und SMTP-Konfiguration erforderlich.
+Alternativ kann der vorhandene Node-Endpunkt auf einer kompatiblen Serverlaufzeit
+hinter einem Reverse Proxy derselben Website betrieben werden. Laufzeit und
+autorisierter SMTP-Absender müssen vor einer Freischaltung feststehen.
+[IONOS: Laufzeitkonfiguration](https://docs.ionos.space/docs/runtime-configuration/)
 
 `NODE_ENV=production`, exakte `PUBLIC_ORIGIN=https://…` und HTTPS konfigurieren.
 Der Server bindet weiterhin an Loopback. Bei einem lokalen Reverse Proxy kann

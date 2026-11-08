@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="canonical" href="https://thiel-classics.de/">
   <meta name="theme-color" content="#000000">
-  <meta name="description" content="THIEL — Classic´n Sportcars. Ausgewählte Oldtimer, Youngtimer und Sportwagen.">
-  <title>THIEL — Classic´n Sportcars</title>
+  <meta name="description" content="THIEL — Classic´n Sportscars. Ausgewählte Oldtimer, Youngtimer und Sportwagen.">
+  <title>THIEL — Classic´n Sportscars</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" href="assets/inter-tight.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/roboto-mono.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=20261031-2">
+  <link rel="stylesheet" href="styles.css?v=20261108-1">
   <link rel="stylesheet" href="services.css?v=20261031-2">
   <link rel="stylesheet" href="contact.css?v=20261031-2">
   <script src="app.js?v=20261031-2" defer></script>
@@ -29,10 +29,26 @@
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-heading">
       <div class="availability"><span class="pulse" aria-hidden="true"></span><span>HANDPICKED WITH PASSION</span></div>
-      <h1 id="hero-heading" class="hero-title" aria-label="CLASSIC´N SPORTCARS">
+      <h1 id="hero-heading" class="hero-title" aria-label="CLASSIC´N SPORTSCARS">
         <span class="headline-art" aria-hidden="true">
           <span class="headline-line"><span class="line-art first-line"></span></span>
-          <span class="headline-line"><span class="line-art second-line"></span></span>
+          <span class="headline-line">
+            <svg class="line-art second-line" viewBox="0 0 1678 207" preserveAspectRatio="none" focusable="false">
+              <defs>
+                <image id="hero-lettering" href="/assets/classic-sportcars.png" width="1882" height="836"/>
+                <clipPath id="hero-sport-crop"><path d="M0 0H836V72H834V207H0Z"/></clipPath>
+                <clipPath id="hero-cars-crop"><path d="M1002 0H1678V207H1000V72H1002Z"/></clipPath>
+              </defs>
+              <!-- Reuse the original artwork: SPORT, a second copy of S, then CARS. -->
+              <g clip-path="url(#hero-sport-crop)">
+                <svg width="836" height="207" viewBox="187 419 836 207"><use href="#hero-lettering"/></svg>
+              </g>
+              <svg x="836" width="164" height="207" viewBox="186 419 164 207"><use href="#hero-lettering"/></svg>
+              <g clip-path="url(#hero-cars-crop)">
+                <svg x="1000" width="678" height="207" viewBox="1023 419 678 207"><use href="#hero-lettering"/></svg>
+              </g>
+            </svg>
+          </span>
         </span>
       </h1>
     </section>

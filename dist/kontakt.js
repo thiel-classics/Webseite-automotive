@@ -1,12 +1,9 @@
 (() => {
   'use strict';
   const form = document.querySelector('.kontakt-form');
-  if (form.dataset.contactMode === 'direct') {
-    form.addEventListener('submit', event => event.preventDefault());
-    return;
-  }
   const status = form.querySelector('.kontakt-status');
   const button = form.querySelector('.kontakt-send');
+  const availability = form.querySelector('.kontakt-availability');
   const fields = ['name', 'email', 'message'];
   let sending = false;
   function setStatus(message, error = false) {
@@ -39,11 +36,19 @@
   fetch('/api/contact/status', {credentials:'same-origin', cache:'no-store'})
     .then(response => { if (!response.ok) throw new Error(); return response.json(); })
     .then(config => {
-      if (!config.ready) setStatus(config.message);
+      if (!config.ready) { setStatus(config.message); return; }
+      form.dataset.contactMode = 'form';
+      form.querySelectorAll('input:disabled, textarea:disabled, button:disabled').forEach(control => { control.disabled = false; });
+      if (config.preview) {
+        availability.textContent = 'Lokale Vorschau. Das Formular verwendet ausschließlich einen simulierten Versand.';
+      } else {
+        availability.hidden = true;
+        form.removeAttribute('aria-describedby');
+      }
     }).catch(() => setStatus('Der Formularversand ist momentan nicht verfügbar. Bitte kontaktiere uns per E-Mail oder Telefon.'));
   form.addEventListener('submit', async event => {
     event.preventDefault();
-    if (sending) return;
+    if (form.dataset.contactMode !== 'form' || sending) return;
     const valid = fields.map(validate).every(Boolean);
     if (!valid) { setStatus('Bitte prüfe die markierten Felder.', true); form.querySelector('[aria-invalid="true"]').focus(); return; }
     sending = true; button.disabled = true; button.textContent = 'WIRD GESENDET …';

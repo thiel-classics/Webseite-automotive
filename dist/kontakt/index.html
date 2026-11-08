@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="/styles.css?v=20261031-2">
   <link rel="stylesheet" href="/kontakt.css?v=20261031-2">
   <script src="/app.js?v=20261031-2" defer></script>
-  <script src="/kontakt.js?v=20261031-2" defer></script>
+  <script src="/kontakt.js?v=20261108-1" defer></script>
 </head>
 <body id="top" class="kontakt-page">
   <a class="skip-link" href="#main-content">Zum Inhalt</a>
@@ -29,13 +29,13 @@
     <h1 class="kontakt-title"><span>KONTAKT</span></h1>
     <div class="kontakt-grid">
       <aside class="kontakt-details" aria-label="Kontaktdaten">
-        <a href="mailto:thieltrading@web.de">thieltrading@web.de</a>
+        <a href="mailto:info@thiel-classics.de">info@thiel-classics.de</a>
         <a href="tel:+491734209980">+49 173 4209980</a>
       </aside>
       <div class="kontakt-content">
         <p class="kontakt-intro">Du hast einen besonderen Klassiker oder Sportwagen in der Garage und spielst mit dem Gedanken, ihn zu verkaufen? Dann lass uns darüber sprechen! Wir sind immer neugierig auf spannende Automobile und die Geschichten dahinter. Erzähl uns von deinem Fahrzeug.</p>
-        <form class="kontakt-form" data-contact-mode="direct" aria-label="Kontaktformular – derzeit deaktiviert" aria-describedby="contact-availability" novalidate>
-          <p class="kontakt-availability" id="contact-availability">Das Kontaktformular ist derzeit noch nicht freigeschaltet. Schreib uns bitte direkt per <a href="mailto:thieltrading@web.de">E-Mail</a> oder ruf uns unter <a href="tel:+491734209980">+49 173 4209980</a> an.</p>
+        <form class="kontakt-form" data-contact-mode="direct" action="/api/contact" method="post" aria-label="Kontaktformular" aria-describedby="contact-availability" novalidate>
+          <p class="kontakt-availability" id="contact-availability">Wenn das Formular nicht verfügbar ist, schreib uns direkt per <a href="mailto:info@thiel-classics.de">E-Mail</a> oder ruf uns unter <a href="tel:+491734209980">+49 173 4209980</a> an.</p>
           <div class="kontakt-field">
             <label for="contact-name">Name <span aria-hidden="true">*</span></label>
             <input id="contact-name" name="name" type="text" autocomplete="name" required maxlength="100" aria-describedby="name-error" disabled>

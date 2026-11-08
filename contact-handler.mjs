@@ -1,14 +1,15 @@
 import {createHmac, randomBytes} from 'node:crypto';
 import nodemailer from 'nodemailer';
 
-const RECIPIENT = 'thieltrading@web.de';
+const RECIPIENT = 'info@thiel-classics.de';
 const MAX_BODY = 24576;
 const WINDOW_MS = 15 * 60 * 1000;
 const EMAIL = /^[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?)+$/;
 const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
 
-export function createContactHandler({env = process.env, privacyPath = null, transport, now = Date.now} = {}) {
+export function createContactHandler({env = process.env, privacyPath = null, transport, preview = false, now = Date.now} = {}) {
   const production = env.NODE_ENV === 'production';
+  if (preview && (production || !transport)) throw new Error('Die Formularvorschau benötigt einen lokalen Test-Transport.');
   const secret = randomBytes(32); // Ephemeral key: no raw IPs or persistent identifiers.
   const attempts = new Map();
   let mailTransport = transport;
@@ -18,11 +19,12 @@ export function createContactHandler({env = process.env, privacyPath = null, tra
       ['true', 'false'].includes(env.SMTP_SECURE));
   }
   function config() {
-    const mailReady = smtpConfigured();
-    const privacyReady = env.PRIVACY_NOTICE_READY === 'true' && Boolean(privacyPath);
+    const mailReady = preview || smtpConfigured();
+    const privacyReady = (preview || env.PRIVACY_NOTICE_READY === 'true') && Boolean(privacyPath);
     return {
       ready: mailReady && privacyReady,
       privacyUrl: privacyPath,
+      ...(preview ? {preview:true} : {}),
       message: !mailReady
         ? 'Der Formularversand ist noch nicht eingerichtet. Bitte kontaktiere uns per E-Mail oder Telefon.'
         : !privacyReady
@@ -134,13 +136,16 @@ export function createContactHandler({env = process.env, privacyPath = null, tra
         logger:false, debug:false, disableFileAccess:true, disableUrlAccess:true
       });
       const result = await mailTransport.sendMail({
-        from:{name:'THIEL Website', address:env.SMTP_FROM}, to:RECIPIENT,
+        from:{name:'THIEL Website', address:preview ? RECIPIENT : env.SMTP_FROM}, to:RECIPIENT,
         replyTo:{address:email}, subject:'Neue Fahrzeuganfrage — THIEL',
         text:`Name: ${name}\nE-Mail: ${email}\n\n${message}`,
         disableFileAccess:true, disableUrlAccess:true
       });
       if (!result.accepted?.some(address => String(address).toLowerCase() === RECIPIENT)) throw new Error('Mail not accepted');
-      send(res, 200, {ok:true, message:'Vielen Dank! Deine Nachricht wurde an unseren Mailserver übergeben. Wir melden uns bei dir.'});
+      const confirmation = preview
+        ? 'Test erfolgreich. Deine Nachricht wurde nur in der lokalen Vorschau verarbeitet.'
+        : 'Vielen Dank! Deine Nachricht wurde an unseren Mailserver übergeben. Wir melden uns bei dir.';
+      send(res, 200, {ok:true, message:confirmation});
     } catch {
       // Deliberately do not log SMTP errors: they can contain addresses or credentials.
       send(res, 502, {ok:false, message:'Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut oder kontaktiere uns direkt.'});

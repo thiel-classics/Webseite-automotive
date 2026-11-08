@@ -3,13 +3,20 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createContactHandler} from './contact-handler.mjs';
-// Optional local .env; production may supply the same variables through its host.
-try { process.loadEnvFile?.(path.join(path.dirname(fileURLToPath(import.meta.url)), '.env')); }
-catch (error) { if (error.code !== 'ENOENT') throw new Error('Lokale Mail-Konfiguration konnte nicht geladen werden.'); }
+const preview = process.argv.includes('--preview-contact');
+// Do not load mail credentials when running the isolated browser preview.
+if (!preview) {
+  try { process.loadEnvFile?.(path.join(path.dirname(fileURLToPath(import.meta.url)), '.env')); }
+  catch (error) { if (error.code !== 'ENOENT') throw new Error('Lokale Mail-Konfiguration konnte nicht geladen werden.'); }
+}
 const root=path.join(path.dirname(fileURLToPath(import.meta.url)),'dist');
 const port=Number(process.env.PORT || 4173);
 const privacyPath=fs.existsSync(path.join(root,'datenschutz/index.html'))?'/datenschutz':fs.existsSync(path.join(root,'datenschutz.html'))?'/datenschutz.html':null;
-const contactHandler=createContactHandler({privacyPath});
+const contactHandler=createContactHandler({
+  privacyPath,
+  preview,
+  transport:preview ? {async sendMail({to}) { return {accepted:[to]}; }} : undefined
+});
 const mime={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json; charset=utf-8','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.avif':'image/avif','.woff2':'font/woff2','.svg':'image/svg+xml'};
 const server=http.createServer(async (req,res)=>{
   let url;try{url=decodeURIComponent(new URL(req.url,'http://localhost').pathname);}catch{res.writeHead(400);return res.end('Bad request');}

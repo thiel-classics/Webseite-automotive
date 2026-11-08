@@ -9,8 +9,9 @@ erhalten. Alte Gestaltungsanweisungen nicht aus der Vorgängerversion übernehme
 - Prüfung: node scripts/check-launch.mjs. Backend zusätzlich: pnpm test.
 - Hosting: bestehendes IONOS Deploy Now, GitHub main, Auslieferung von dist.
 - Die drei vorhandenen IONOS-Workflows und die Domain-Verbindung beibehalten.
-- Kontaktformular ist auf Betreiberwunsch sichtbar deaktiviert (direct-Modus).
-  E-Mail und Telefon sind aktiv. Keine externen Formulardienste ergänzen.
+- Kontaktformular startet deaktiviert und wird nur bei Versandbereitschaft des
+  eigenen Endpunkts freigeschaltet. E-Mail und Telefon sind aktiv.
+  Keine externen Formulardienste ergänzen.
 - Der vorbereitete Node-Mailserver läuft nicht bei IONOS Deploy Now. Vor einer
   Freischaltung eine unterstützte Backend-Laufzeit, SMTP und Rechtstexte prüfen.
 - Keine Geheimnisse in dist, Git oder Browsercode; .env bleibt lokal/ignoriert.

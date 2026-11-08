@@ -65,10 +65,10 @@ test('rate limit expires and does not accept spoofed forwarding headers',async t
 });
 test('success goes only to fixed recipient as plaintext, visitor address is Reply-To',async t=>{
   let mail;
-  const handler=createContactHandler({env,privacyPath:'/datenschutz',transport:{sendMail:async message=>{mail=message;return {accepted:['thieltrading@web.de']};}}});t.after(()=>handler.close());
+  const handler=createContactHandler({env,privacyPath:'/datenschutz',transport:{sendMail:async message=>{mail=message;return {accepted:['info@thiel-classics.de']};}}});t.after(()=>handler.close());
   const result=await request(handler,{data:{...body,message:'<script>alert(1)</script>'}});
   assert.equal(result.status,200);assert.equal(result.body.ok,true);
-  assert.equal(mail.to,'thieltrading@web.de');assert.equal(mail.from.address,env.SMTP_FROM);
+  assert.equal(mail.to,'info@thiel-classics.de');assert.equal(mail.from.address,env.SMTP_FROM);
   assert.equal(mail.replyTo.address,body.email);assert.equal(mail.html,undefined);
   assert.ok(mail.text.includes('<script>alert(1)</script>'));
   assert.equal(mail.disableFileAccess,true);assert.equal(mail.disableUrlAccess,true);
@@ -81,6 +81,17 @@ test('SMTP rejection does not return success or leak error details',async t=>{
     assert.equal(result.status,502);assert.equal(result.body.ok,false);
     assert.ok(!JSON.stringify(result).includes('private credential'));
   }
+});
+test('preview requires an injected test transport and cannot run in production',async t=>{
+  const transport={sendMail:async ({to})=>({accepted:[to]})};
+  const options={preview:true,privacyPath:'/datenschutz'};
+  assert.throws(()=>createContactHandler({...options,env:{}}));
+  assert.throws(()=>createContactHandler({...options,env:{NODE_ENV:'production'},transport}));
+  const handler=createContactHandler({...options,env:{},transport});t.after(()=>handler.close());
+  const status=await request(handler,{method:'GET',pathname:'/api/contact/status'});
+  assert.equal(status.body.ready,true);assert.equal(status.body.preview,true);
+  assert.equal((await request(handler,{data:{...body,message:''}})).status,422);
+  assert.match((await request(handler)).body.message,/lokalen Vorschau/);
 });
 test('production requires configured HTTPS origin and verified TLS or trusted local proxy',async t=>{
   const handler=createContactHandler({env:{NODE_ENV:'production',PUBLIC_ORIGIN:'https://thiel.example',TRUST_PROXY:'loopback'}});t.after(()=>handler.close());
